@@ -1,12 +1,20 @@
 <template>
-    <div id='mt100'>
-      <img src="./assets/rate_poster/menubar.png" alt="rr" id='ratepng'>
+  <div class="container2">
+    <img src="./assets/rate_poster/movie_rate_poster.jpg" alt="" id='rate_poster'>
+    <!-- <div><img src="./assets/logo.png" alt=""></div> -->
+    <div id='rate_box'>
+      <div id='rate_container'>순위 1 슈퍼마리오 브라더스</div>
+      <div id='rate_container'>순위 1 슈퍼마리오 브라더스</div>
+      <div id='rate_container'>순위 1 슈퍼마리오 브라더스</div>
+      <div id='rate_container'>순위 1 슈퍼마리오 브라더스</div>
+      
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'HomeFooter',
+  name: 'MovieRating',
   props: {
     msg: String
   }
@@ -30,15 +38,9 @@ a {
   color: #42b983;
 }
 .container2{
-  margin-top: 50px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 
-}
-
-.text_big{
-  font-size: 40px;
-  color:white;
 }
 
 #rate_poster{
@@ -46,17 +48,12 @@ a {
   max-height: 600px;
 }
 
-.rate_box{
-  display: flex;
-  text-align: left;
-  
-  /* border:solid white 1px; */
+#rate_box{
+  border:solid white 1px;
   /* width:100vw; */
 }
 #violet{
   color: #C0B7E8;
-  font-size:45px;
-  font-weight: 550;
   
 }
 
@@ -66,22 +63,5 @@ a {
   /* margin-left: 50px; */
   /* margin-right: 50px; */
   margin-bottom: 20px;
-}
-
-#ratepng{
-  border-radius: 20%;
-}
-
-#text_sm{
-  flex-wrap: wrap;
-  font-size: 18px;
-}
-
-#mt100{
-  margin-top: 100px;
-}
-
-.column{
-  flex-direction: column;
 }
 </style>

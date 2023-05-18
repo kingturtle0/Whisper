@@ -15,9 +15,8 @@
     <div>
       <MovieRating msg="Welcome to Your Vue.js App"/>
     </div>
-    <div>
-      <!-- <HomeFooter msg="Welcome to Your Vue.js App"/>   -->
-    </div>
+    <div></div>
+      <HomeFooter/>  
     
     
 
@@ -26,11 +25,13 @@
 </template>
 
 <script>
-import MovieRating from './components/MovieRatinddg.vue'
+import MovieRating from './components/MovieRating.vue'
+import HomeFooter from './components/HomeFooter.vue'
 export default {
   name: 'App',
   components: {
     MovieRating,
+    HomeFooter,
   }
 }
 </script>
@@ -62,6 +63,8 @@ export default {
 /* display:flex 클래스 */
 .container {
 	display: flex;
+  align-content: center;
+  margin-top: 20px;
   justify-content: space-evenly;
   /* border: solid 1px white; */
   font-size: 20pt;
@@ -69,6 +72,12 @@ export default {
 	/* display: inline-flex; */
 }
 
+.violet{
+  color: #C0B7E8;
+  font-size:45px;
+  font-weight: 550;
+  
+}
 
 
 
