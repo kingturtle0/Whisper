@@ -3,35 +3,33 @@
     <div class="container">
       <Home01Navbar/>
       <section class="recommend-container">
-        <Recommend01Genre/>
-        <Recommend02Year/>
         <h3 class="ms-5 my-4">장르별</h3>
         <div class="row d-flex justify-content-center my-4">
           <!-- <ul v-for="genre in genres" :key="genre.id">
             <li></li>
           </ul> -->
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
-          <div class="box m-4">
+          <div class="box col-2 m-4">
             
           </div>
         </div>
@@ -73,10 +71,5 @@ export default {
 </script>
 
 <style>
-.box {
-  width: 220px;
-  height: 220px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 10px;
-}
+
 </style>
