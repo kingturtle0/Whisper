@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import RecommendView from '@/views/RecommendView.vue'
 import SearchView from '@/views/SearchView.vue'
+import CommunityView from '@/views/CommunityView.vue'
+import CreateArticleView from '@/views/CreateArticleView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 
 Vue.use(VueRouter)
@@ -22,6 +24,16 @@ const routes = [
     path: '/search',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/community',
+    name: 'CommunityView',
+    component: CommunityView
+  },
+  {
+    path: '/community/create',
+    name: 'CreateArticleView',
+    component: CreateArticleView
   },
   // {
   //   path: '/about',

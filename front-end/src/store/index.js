@@ -15,8 +15,8 @@ export default new Vuex.Store({
     createPersistedState(),
   ],
   state: {
-    // articles: [
-    // ],
+    articles: [
+    ],
     token: null,
   },
   getters: {
@@ -25,9 +25,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    // GET_ARTICLES(state, articles) {
-    //   state.articles = articles
-    // },
+    GET_ARTICLES(state, articles) {
+      state.articles = articles
+    },
     // signup & login -> 완료하면 토큰 발급
     SAVE_TOKEN(state, token) {
       state.token = token
@@ -35,19 +35,22 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    // getArticles(context) {
-    //   axios({
-    //     method: 'get',
-    //     url: `${API_URL}/api/v1/articles/`,
-    //   })
-    //     .then((res) => {
-    //     // console.log(res, context)
-    //       context.commit('GET_ARTICLES', res.data)
-    //     })
-    //     .catch((err) => {
-    //     console.log(err)
-    //   })
-    // },
+    getArticles(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/`,
+        headers: {
+          'Authorization' : `Token ${context.state.token}`
+        }
+      })
+        .then((response) => {
+        // console.log(response, context)
+          context.commit('GET_ARTICLES', response.data)
+        })
+        .catch((error) => {
+        console.log(error)
+      })
+    },
     signUp(context, payload) {
       const username = payload.username
       const password1 = payload.password1
@@ -60,13 +63,13 @@ export default new Vuex.Store({
           username, password1, password2
         }
       })
-        .then((res) => {
-          // console.log(res)
-          // context.commit('SIGN_UP', res.data.key)
-          context.commit('SAVE_TOKEN', res.data.key)
+        .then((response) => {
+          // console.log(response)
+          // context.commit('SIGN_UP', response.data.key)
+          context.commit('SAVE_TOKEN', response.data.key)
         })
-        .catch((err) => {
-        console.log(err)
+        .catch((error) => {
+        console.log(error)
       })
     },
     login(context, payload) {
@@ -80,10 +83,10 @@ export default new Vuex.Store({
           username, password
         }
       })
-        .then((res) => {
-        context.commit('SAVE_TOKEN', res.data.key)
+        .then((response) => {
+        context.commit('SAVE_TOKEN', response.data.key)
         })
-      .catch((err) => console.log(err))
+      .catch((error) => console.log(error))
     }
   },
   modules: {
