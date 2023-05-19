@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Home01Navbar/>
     <h1>게시글 작성</h1>
     <form @submit.prevent="createArticle">
       <label for="title">제목 : </label>
@@ -12,11 +13,15 @@
 </template>
 
 <script>
+import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'CreateView',
+  components: {
+    Home01Navbar,
+  },
   data() {
     return {
       title: null,
@@ -39,6 +44,9 @@ export default {
         method: 'post',
         url: `${API_URL}/community/`,
         data: { title, content },
+        headers: {
+          'Authorization' : `Token ${this.$store.state.token}`
+        }
       })
       .then(() => {
         // console.log(res)
