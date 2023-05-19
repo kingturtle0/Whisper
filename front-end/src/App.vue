@@ -10,6 +10,8 @@
 
 
 <style>
+
+
 #app {
 font-family: 'Noto Sans KR','Montserrat', sans-serif;
 /* font-family: 'Montserrat', 'Noto Sans KR', sans-serif; */
@@ -38,15 +40,15 @@ nav a.router-link-exact-active {
 
 }
 
-.background{ 
+/* .background{ 
   min-width: 100%;
   min-height: 100%;
   background-color: #0e1318;
   background-size: cover;
   background-position: center center;
   position:fixed;
-  /* background-image: url(./assets/background.png); */
-}
+  /* background-image: url(./assets/background.png);
+}  */
 
 .violet{
   color: #C0B7E8;
@@ -64,5 +66,12 @@ div{
 
 img:hover{
   cursor:pointer;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
 }
 </style>

@@ -2,8 +2,6 @@
   <div class="background">
     <div class="container">
       <Home01Navbar/>
-      <RecommendPick01Main/>
-      <RecommendPick02Footer/>
     </div>
   </div>
 </template>
