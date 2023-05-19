@@ -1,14 +1,16 @@
 <template>
   <div class='flex-container'>
-    <div v-if="this.$store.getters.isLogin==false">{{this.$store.getters.isLogin}}</div>
-    <div v-if='login_modal==true' class='logindirect'>
+    <!-- 로그인알림 -->
+
+
+    <div v-if='login_modal==true && isLogin==false' class='logindirect'>
       <div class="main">
         <div class='close close1' @click='login_modal=false'></div>
         <h1 class="logo">Whisper</h1>
         <form @submit.prevent="login">
           <input type="text" placeholder="ID" id="id" class="account" v-model="username">
           <input type="password" placeholder="Password" id="password" class="account" v-model="password">
-          <div><button id="login" class="account" type="submit">로그인</button></div>
+          <div><button id="login" class="account" type="submit" @click='loginMention'>로그인</button></div>
           <div>
             <router-link :to="{name:'SignUpView'}">
               <button id="signup" class="account">회원가입</button>
@@ -19,7 +21,16 @@
       </div>
     </div>
 
-
+<!-- 마이페이지모달 -->
+    <div v-if='mypage_modal==true' class='logindirect'>
+      <div class="main">
+        <div class='close close1' @click='closemypage'></div>
+          <div><button id="login" class="account">내정보</button></div>
+          <div>
+              <button id="signup" class="account">로그아웃</button>
+          </div>
+      </div>
+    </div>
 
 
     <!-- style="flex-grow: 2" -->
@@ -53,9 +64,16 @@
     <div class='flex-item' style='flex-grow:1'>
       커뮤니티
     </div>
-    <div class='flex-item' style='flex-grow:1' @click='login_modal=true'>
+
+    <div v-if="isLogin==false" class='flex-item' style='flex-grow:1' @click='login_modal=true'>
       로그인
     </div>
+
+    <div v-if="isLogin==true" class='flex-item' style='flex-grow:1' @click='mypage_modal=true'>
+      MYPAGE
+    </div>
+
+
 
     <!-- 오른쪽마진 -->
     <div class='flex-item' style='flex-grow:0.5'>
@@ -72,16 +90,32 @@
     data() {
       return {
         login_modal: false,
+        mypage_modal: false,
         username: null,
         password: null,
       }
     },
+    computed:{
+      isLogin(){
+        return this.$store.getters.isLogin
+      }
+    },
+
     methods:{
-      closelogin:function(){
-        if(this.login_modal==true){
-          return this.login_modal=false;
-        }
+      loginMention:function(){
+        alert('로그인성공')
       },
+
+      closelogin:function(){
+          return this.login_modal=false;
+      },
+
+      closemypage:function(){
+          return this.mypage_modal=false;
+      },
+
+
+      
       login() {
       const username = this.username
       const password = this.password
@@ -94,6 +128,10 @@
     }
     }
   }
+
+
+/* 로그인알림 */
+
 </script>
 
 
@@ -210,8 +248,6 @@
 }
 /* =================로그인================= */
 
-/* 언더라인 */
-/* #F8CD07 */
 
-/* 언더라인 */
+
 </style>

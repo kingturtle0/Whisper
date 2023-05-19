@@ -2,6 +2,7 @@
   <div>
     <div class='marginbox'>
       <!-- <img src="../../assets/footerbar.svg" class='footerbar'> -->
+      하이
     </div>
   </div>
   
