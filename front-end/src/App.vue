@@ -5,13 +5,14 @@
       <Home02Main/>
       <Home03Rate/>
       <Home04Footer/>
-
-
-
+      <!-- <div id="app">
+        <nav>
+          <router-link to="/">Home</router-link> |
+          <router-link to="/about">About</router-link>
+        </nav>
+        <router-view/>
+      </div> -->
     </div>
-    
-
-
   </div>
 </template>
 
@@ -57,7 +58,22 @@ export default {
 // })
 </script>
 
+
 <style>
+
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+
 #app {
 font-family: 'Noto Sans KR','Montserrat', sans-serif;
 /* font-family: 'Montserrat', 'Noto Sans KR', sans-serif; */
@@ -100,8 +116,4 @@ div{
 img:hover{
   cursor:pointer;
 }
-
-
 </style>
-
-
