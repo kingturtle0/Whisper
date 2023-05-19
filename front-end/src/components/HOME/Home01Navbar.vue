@@ -1,8 +1,7 @@
 <template>
   <div class='flex-container'>
-
-
-    <div v-if='login_modal==true' class=''>
+    <div v-if="this.$store.getters.isLogin==false">{{this.$store.getters.isLogin}}</div>
+    <div v-if='login_modal==true' class='logindirect'>
       <div class="main">
         <div class='close close1' @click='login_modal=false'></div>
         <h1 class="logo">Whisper</h1>
@@ -21,26 +20,36 @@
     </div>
 
 
+
+
     <!-- style="flex-grow: 2" -->
+
+
     <div class='flex-item' style='flex-grow:1'>
       <router-link :to="{ name: 'HomeView' }">
         <img src="../../assets/NAV_LOGO.png" alt="LOGO" class='logo-img'>
       </router-link>
     </div>
 
-    <div class='flex-item' style='flex-grow:7'>
+    <div class='flex-item' style='flex-grow:2'>
       <!-- 빈칸 grow -->
     </div>
 
     <div class='flex-item' style='flex-grow:1'>
+        <input type="text" placeholder="SEARCH" class="home-input">
+    </div>
+
+    <div class='flex-item' style='flex-grow:1'>
       ABOUT
-      <router-link :to="{ name: 'RecommendView' }">
+    </div>
+
+    <div class='flex-item' style='flex-grow:1;'>
+      <router-link :to="{ name: 'RecommendView' }" class='router-link'>
         RECOMMEND
       </router-link>
-      <router-link :to="{ name: 'SearchView' }">
-        SEARCH
-      </router-link>
     </div>
+
+    
     <div class='flex-item' style='flex-grow:1'>
       커뮤니티
     </div>
@@ -90,16 +99,16 @@
 
 
 
-
-
 <style>
-  .flex-container {
+
+
+.flex-container {
     display: flex;
     margin-top: 10px;
 
   }
 
-  .flex-item {
+.flex-item {
     display: flex;
     font-size: 20px;
     justify-content: center;
@@ -107,9 +116,20 @@
     font-weight: 500;
   }
 
-  .logo-img {
+.logo-img {
     /* height: 150px; */
     width: 120px;
+  }
+
+.home-input{
+  width: 300px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
   }
 
 /* ===========================로그인=================================== */
@@ -120,6 +140,12 @@
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   padding: 20px;
+}
+
+.logindirect{
+  position: absolute;
+  top: 70px;
+  right: 418px;
 }
 
 .close{
@@ -163,6 +189,7 @@
 }
 
 #login,
+
 #signup {
     width: 100%;
     background-color: #C0B7E8;
@@ -181,4 +208,10 @@
 #alert {
     border-color: transparent;
 }
+/* =================로그인================= */
+
+/* 언더라인 */
+/* #F8CD07 */
+
+/* 언더라인 */
 </style>
