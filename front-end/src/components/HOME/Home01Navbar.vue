@@ -6,19 +6,26 @@
       <div class="main">
         <div class='close close1' @click='login_modal=false'></div>
         <h1 class="logo">Whisper</h1>
-        <div class="">
-          <input type="text" placeholder="ID" id="id" class="account">
-          <input type="password" placeholder="Password" id="password" class="account">
-          <div><button id="login" class="account">로그인</button></div>
+        <form @submit.prevent="login">
+          <input type="text" placeholder="ID" id="id" class="account" v-model="username">
+          <input type="password" placeholder="Password" id="password" class="account" v-model="password">
+          <div><button id="login" class="account" type="submit">로그인</button></div>
+          <div>
+            <router-link :to="{name:'SignUpView'}">
+              <button id="signup" class="account">회원가입</button>
+            </router-link>
+          </div>
           <p id="alert" class="account"> </p>
-        </div>
+        </form>
       </div>
     </div>
 
 
     <!-- style="flex-grow: 2" -->
     <div class='flex-item' style='flex-grow:1'>
-      <img src="../../assets/NAV_LOGO.png" alt="LOGO" class='logo-img'>
+      <router-link :to="{ name: 'HomeView' }">
+        <img src="../../assets/NAV_LOGO.png" alt="LOGO" class='logo-img'>
+      </router-link>
     </div>
 
     <div class='flex-item' style='flex-grow:7'>
@@ -27,6 +34,12 @@
 
     <div class='flex-item' style='flex-grow:1'>
       ABOUT
+      <router-link :to="{ name: 'RecommendView' }">
+        RECOMMEND
+      </router-link>
+      <router-link :to="{ name: 'SearchView' }">
+        SEARCH
+      </router-link>
     </div>
     <div class='flex-item' style='flex-grow:1'>
       커뮤니티
@@ -50,6 +63,8 @@
     data() {
       return {
         login_modal: false,
+        username: null,
+        password: null,
       }
     },
     methods:{
@@ -57,7 +72,17 @@
         if(this.login_modal==true){
           return this.login_modal=false;
         }
+      },
+      login() {
+      const username = this.username
+      const password = this.password
+
+      const payload = {
+        username, password
       }
+
+      this.$store.dispatch('login', payload)
+    }
     }
   }
 </script>
@@ -137,7 +162,8 @@
     margin-bottom: 40px;
 }
 
-#login {
+#login,
+#signup {
     width: 100%;
     background-color: #C0B7E8;
     border-color: transparent;
