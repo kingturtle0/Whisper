@@ -21,18 +21,8 @@ color:white;
 /* color: #2c3e50; */
 }
 
-/* nav {
-  padding: 30px;
-}
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
 
-nav a.router-link-exact-active {
-  color: #42b983;
-} */
 
 .container{
   width:1100px;
@@ -73,5 +63,11 @@ img:hover{
   height: 200px;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
+}
+
+.router-link{
+  text-decoration: none;
+  color:white ;
+
 }
 </style>
