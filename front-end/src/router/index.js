@@ -5,6 +5,7 @@ import RecommendView from '@/views/RecommendView.vue'
 import SearchView from '@/views/SearchView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import CreateArticleView from '@/views/CreateArticleView.vue'
+import DetailArticleView from '@/views/DetailArticleView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 
 Vue.use(VueRouter)
@@ -34,6 +35,11 @@ const routes = [
     path: '/community/create',
     name: 'CreateArticleView',
     component: CreateArticleView
+  },
+  {
+    path: '/community/:id',
+    name: 'DetailArticleView',
+    component: DetailArticleView,
   },
   // {
   //   path: '/about',

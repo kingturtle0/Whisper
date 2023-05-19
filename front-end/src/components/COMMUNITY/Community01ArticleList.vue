@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <h3>Article List</h3>
-    <Community02ArticleListItem 
-    v-for="article in articles" :key="article.id" :article="article"
-    />
+    <Community02ArticleListItem v-for="article in articles" :key="article.id" :article="article"/>
   </div>
 </template>
 

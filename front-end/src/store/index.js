@@ -86,7 +86,10 @@ export default new Vuex.Store({
         .then((response) => {
         context.commit('SAVE_TOKEN', response.data.key)
         })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+        alert('다시 입력해주세요!')
+      })
     }
   },
   modules: {

@@ -2,9 +2,9 @@
   <div>
     <h5>{{ article.title }}</h5>
     <p>{{ article.content }}</p>
-    <!-- <router-link :to="{ name: 'DetailView', params: { id: article.id }}">
+    <router-link :to="{ name: 'DetailArticleView', params: { id: article.id }}">
       [DETAIL]
-    </router-link> -->
+    </router-link>
     <hr>
   </div>
 </template>
