@@ -1,6 +1,6 @@
 <template>
   <div class="rate-container">
-    <div @mouseover="selectPoster(0)">
+    <!-- <div @mouseover="selectPoster(0)">
       <img src="../../assets/MAIN_poster.jpg" :class="{ 'rate-poster': true, 'rate-select': selectedPosterIndex === 0 }">
     </div>
 
@@ -22,7 +22,7 @@
     <div @mouseover="selectPoster(4)">
       <img src="../../assets/rate_04.jpg" :class="{ 'rate-poster': true, 'rate-select': selectedPosterIndex === 4 }">
       <div class="overlay" v-if="hoveredPosterIndex === 4"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 
