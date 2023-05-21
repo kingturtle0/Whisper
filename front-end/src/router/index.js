@@ -6,6 +6,8 @@ import SearchView from '@/views/SearchView.vue'
 import CommunityView from '@/views/CommunityView.vue'
 import CreateArticleView from '@/views/CreateArticleView.vue'
 import DetailArticleView from '@/views/DetailArticleView.vue'
+import MoviesView from '@/views/MoviesView.vue'
+import DetailMovieView from '@/views/DetailMovieView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 
 Vue.use(VueRouter)
@@ -40,6 +42,16 @@ const routes = [
     path: '/community/:id',
     name: 'DetailArticleView',
     component: DetailArticleView,
+  },
+  {
+    path: '/movies',
+    name: 'MoviesView',
+    component: MoviesView,
+  },
+  {
+    path: '/movies/:videoId',
+    name: 'DetailMovieView',
+    component: DetailMovieView,
   },
   // {
   //   path: '/about',
