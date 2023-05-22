@@ -19,7 +19,7 @@ export default new Vuex.Store({
     video: [],
     loading: false,
     URL: 'https://www.googleapis.com/youtube/v3',
-    KEY: 'AIzaSyBIFkKeD-PjbNR24yuJQ1UIaia5z5MQuF0'
+    KEY: 'AIzaSyA5zEPaohpABTsDOnqcIZ6sYbOwU6og-wQ'
   },
   getters: {
     isLogin(state) {

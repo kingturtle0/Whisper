@@ -44,10 +44,10 @@
 
 
     <div class="ml-55 mt-40 mb-10" style="font-size: 25px; font-weight: 500">무비차트</div>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5200">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4300">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <div class="container mt-20">
+          <div class="container">
             <div class="row" style="width: 95%; margin: auto">
               <div v-for="index in 5" :key="index" class="col">
                 <img :src="data[index - 1].image" class="rate-poster" @mouseover="changeSelectedIndex(index - 1)" :class="{ 'rate-select': selectedIndex === index - 1 }">
@@ -56,8 +56,8 @@
           </div>
         </div>
         <div class="carousel-item">
-          <div class="container mt-20">
-            <div class="row" style="width: %; margin: auto">
+          <div class="container">
+            <div class="row" style="width: 95%; margin: auto">
               <div v-for="index in 5" :key="index" class="col">
                 <img :src="data[index + 4].image" class="rate-poster" @mouseover="changeSelectedIndex(index + 4)" :class="{ 'rate-select': selectedIndex === index + 4 }">
               </div>

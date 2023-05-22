@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <Home01Navbar/>
-    <div class="d-flex justify-content-end">
-      <router-link :to="{ name: 'CreateArticleView' }">게시물 작성</router-link>
-    </div>
+
     <Community01ArticleList />
   </div>
 </template>
