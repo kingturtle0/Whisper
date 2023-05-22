@@ -49,7 +49,9 @@
       </router-link>
     </div>
     <div class='flex-item' style='flex-grow:1'>
-      커뮤니티
+      <router-link :to="{ name: 'CommunityView' }" class='router-link'>
+        커뮤니티
+      </router-link>
     </div>
     <div v-if="isLogin==false" class='flex-item' style='flex-grow:1' @click='login_modal=true'>
       로그인
