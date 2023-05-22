@@ -4,6 +4,7 @@
       <Home01Navbar/>
       <Home02Main/>
       <Home03Rate/>
+      <AiView/>
       <Home04Footer/>
     </div>
   </div>
@@ -14,6 +15,7 @@ import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
 import Home02Main from '@/components/HOME/Home02Main.vue'
 import Home03Rate from '@/components/HOME/Home03Rate.vue'
 import Home04Footer from '@/components/HOME/Home04Footer.vue'
+import AiView from '@/views/AiView.vue'
 
 export default {
   name: 'HomeView',
@@ -22,6 +24,7 @@ export default {
     Home02Main,
     Home03Rate,
     Home04Footer,
+    AiView
   }
 }
 

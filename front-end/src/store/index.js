@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import dayjs from 'dayjs'
 import createPersistedState from 'vuex-persistedstate'
+import router from '../router'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -19,11 +20,14 @@ export default new Vuex.Store({
     video: [],
     loading: false,
     URL: 'https://www.googleapis.com/youtube/v3',
-    KEY: 'AIzaSyA5zEPaohpABTsDOnqcIZ6sYbOwU6og-wQ'
+    KEY: 'AIzaSyC-qE5UZQcriZFK3b5E3_Vd9m-hYEaqR6g'
   },
   getters: {
     isLogin(state) {
       return state.token ? true : false
+    },
+    selectedVideo(state) {
+      return state.video
     }
   },
   mutations: {
@@ -61,7 +65,7 @@ export default new Vuex.Store({
         })
     },
     getVideo(context, word) {
-			context.dispatch("changeLoading", true);
+			context.dispatch("changeLoading", true)
 			axios.get(`${context.state.URL}/search`, {
         params: {
           key: context.state.KEY,
@@ -71,18 +75,28 @@ export default new Vuex.Store({
           maxResults: 1,
         },
       })
-      .then((response) => {
-        const parsedVideo = response.data.items.map((item) => {
-          return {
-            videoId: item.id.videoId,
-            title: item.snippet.title,
-            description: item.snippet.description,
-            publishTime: dayjs(item.snippet.publishTime).format("YYYY-MM-DD"),
-            thumbnails: item.snippet.thumbnails,
-          };
-        });
-        context.commit("GET_VIDEO", parsedVideo[0]);
-        context.dispatch("changeLoading", false);
+      .then((searchResponse) => {
+        const videoId = searchResponse.data.items[0].id.videoId
+        return axios.get(`${context.state.URL}/videos`, {
+          params: {
+            key: context.state.KEY,
+            part: "snippet",
+            id: videoId
+          },
+        })
+      })
+      .then((videoResponse) => {
+        const item = videoResponse.data.items[0]
+        const parsedVideo = {
+          videoId: item.id,
+          title: item.snippet.title,
+          description: item.snippet.description,
+          publishedAt: dayjs(item.snippet.publishedAt).format("YYYY-MM-DD")
+        }
+        context.commit("GET_VIDEO", parsedVideo)
+        context.dispatch("changeLoading", false)
+
+        router.push(`movies/${parsedVideo.videoId}`)
       })
       .catch((error) => {
         console.log(error);

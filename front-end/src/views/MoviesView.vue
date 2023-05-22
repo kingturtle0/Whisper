@@ -4,7 +4,6 @@
     <div>
       <input type="text" placeholder="Enter the keyword" v-model="userInput" @keyup.enter="getSearchData">
       <button type="button" class="btn btn-success" @click="getSearchData">Search</button>
-      <button @click="moveToDetail">Go To Movie</button>
     </div>
   </div>
 </template>
@@ -24,14 +23,8 @@ export default {
   },
   methods: {
     getSearchData() {
-        console.log('search')
       this.$store.dispatch("getVideo", this.userInput)
       this.userInput = null
-    },
-    moveToDetail() {
-        console.log('move')
-        console.log(this.$store.state.video)
-      this.$router.push(`movies/${this.$store.state.video.videoId}`)
     }
   }
 }
