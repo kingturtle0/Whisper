@@ -55,9 +55,6 @@ export default {
   },
   created() {
     this.$store.dispatch("changeLoading", true)
-    console.log(this.$store.state.URL)
-    console.log(this.$store.state.KEY)
-    console.log(this.$route.params.videoId)
     axios.get(`${this.$store.state.URL}/videos`, {
       params: {
         key: this.$store.state.KEY,
