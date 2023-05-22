@@ -17,6 +17,7 @@ export default new Vuex.Store({
   state: {
     articles: [],
     token: null,
+    userName: null,
     video: [],
     loading: false,
     URL: 'https://www.googleapis.com/youtube/v3',
@@ -34,8 +35,9 @@ export default new Vuex.Store({
     GET_ARTICLES(state, articles) {
       state.articles = articles
     },
-    SAVE_TOKEN(state, token) {
-      state.token = token
+    SAVE_USER_INFO(state, info) {
+      state.token = info.token
+      state.userName = info.userName
       // router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함
     },
     LOGOUT(state) {
@@ -118,7 +120,12 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          context.commit('SAVE_TOKEN', response.data.key)
+          const auth = {
+            token: response.data.key,
+            userName: JSON.parse(response.config.data).username
+          }
+          context.commit('SAVE_USER_INFO', auth)
+          // context.commit('SAVE_USER_INFO', response.data.key)
         })
         .catch((error) => {
           console.log(error)
@@ -136,7 +143,11 @@ export default new Vuex.Store({
         }
       })
         .then((response) => {
-          context.commit('SAVE_TOKEN', response.data.key)
+          const auth = {
+            token: response.data.key,
+            userName: JSON.parse(response.config.data).username
+          }
+          context.commit('SAVE_USER_INFO', auth)
         })
         .catch((error) => {
           console.log(error)
