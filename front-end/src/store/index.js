@@ -18,17 +18,12 @@ export default new Vuex.Store({
   ],
   state: {
     articles: [],
-    // token: null,
-    // userName: null,
     video: [],
     loading: false,
     URL: 'https://www.googleapis.com/youtube/v3',
     KEY: 'AIzaSyC-qE5UZQcriZFK3b5E3_Vd9m-hYEaqR6g'
   },
   getters: {
-    // isLogin(state) {
-    //   return state.token ? true : false
-    // },
     selectedVideo(state) {
       return state.video
     }
@@ -37,18 +32,6 @@ export default new Vuex.Store({
     GET_ARTICLES(state, articles) {
       state.articles = articles
     },
-    // SAVE_USER_INFO(state, info) {
-    //   state.token = info.token
-    //   state.userName = info.userName
-    //   // localStorage.setItem('vuex', JSON.stringify({
-    //   //   token: info.token,
-    //   //   username: info.userName
-    //   // }))
-    //   // router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함
-    // },
-    // LOGOUT(state) {
-    //   state.token = null
-    // },
     GET_VIDEO(state, video) {
 			state.video = video;
 		},
@@ -113,56 +96,22 @@ export default new Vuex.Store({
 		changeLoading(context, flag) {
 			context.commit("CHANGE_LOADING", flag);
 		},
-    // signUp(context, payload) {
-    //   const username = payload.username
-    //   const password1 = payload.password1
-    //   const password2 = payload.password2
-
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/signup/`,
-    //     data: {
-    //       username, password1, password2
-    //     }
-    //   })
-    //     .then((response) => {
-    //       const auth = {
-    //         token: response.data.key,
-    //         userName: JSON.parse(response.config.data).username
-    //       }
-    //       context.commit('SAVE_USER_INFO', auth)
-    //       // context.commit('SAVE_USER_INFO', response.data.key)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //     })
-    // },
-    // login(context, payload) {
-    //   const username = payload.username
-    //   const password = payload.password
-
-    //   axios({
-    //     method: 'post',
-    //     url: `${API_URL}/accounts/login/`,
-    //     data: {
-    //       username, password
-    //     }
-    //   })
-    //     .then((response) => {
-    //       const auth = {
-    //         token: response.data.key,
-    //         userName: JSON.parse(response.config.data).username
-    //       }
-    //       context.commit('SAVE_USER_INFO', auth)
-    //     })
-    //     .catch((error) => {
-    //       console.log(error)
-    //       alert('다시 입력해주세요!')
-    //     })
-    // },
-    // logout(context) {
-    //   context.commit('LOGOUT')
-    // }
+    signUp(context, payload) {
+      const { signupname, signuppassword1, signuppassword2 } = payload;
+    
+      axios
+        .post(`${API_URL}/accounts/signup/`, {
+          username: signupname,
+          password1: signuppassword1,
+          password2: signuppassword2
+        })
+        .then((response) => {
+          context.commit('SAVE_TOKEN', response.data.key);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
   modules: {
     auth

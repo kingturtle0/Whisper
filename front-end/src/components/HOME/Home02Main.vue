@@ -44,7 +44,7 @@
 
 
     <div class="ml-55 mt-40 mb-10" style="font-size: 25px; font-weight: 500">무비차트</div>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4300">
+    <div id="carouselExampleSlidesOnly" class="carousel slide zindex" data-bs-ride="carousel" data-bs-interval="5000">
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="container">
@@ -182,5 +182,8 @@ export default {
   border: solid 2.5px rgba(229, 255, 0, 0.884);
 }
 
+.zindex{
+  z-index: 0;
+}
 
 </style>
