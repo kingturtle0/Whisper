@@ -28,17 +28,14 @@ const auth =  {
   },
   actions: {
     signUp(context, payload) {
-      const username = payload.username
-      const password1 = payload.password1
-      const password2 = payload.password2
-
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/signup/`,
-        data: {
-          username, password1, password2
-        }
-      })
+      const { signupname, signuppassword1, signuppassword2 } = payload;
+    
+      axios
+        .post(`${API_URL}/accounts/signup/`, {
+          username: signupname,
+          password1: signuppassword1,
+          password2: signuppassword2
+        })
         .then((response) => {
           const auth = {
             token: response.data.key,

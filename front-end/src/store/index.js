@@ -96,22 +96,8 @@ export default new Vuex.Store({
 		changeLoading(context, flag) {
 			context.commit("CHANGE_LOADING", flag);
 		},
-    signUp(context, payload) {
-      const { signupname, signuppassword1, signuppassword2 } = payload;
     
-      axios
-        .post(`${API_URL}/accounts/signup/`, {
-          username: signupname,
-          password1: signuppassword1,
-          password2: signuppassword2
-        })
-        .then((response) => {
-          context.commit('SAVE_TOKEN', response.data.key);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+
   },
   modules: {
     auth
