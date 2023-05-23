@@ -1,10 +1,9 @@
 <template>
   <div class='flex-container'>
     <div v-if='login_modal==true && isLogin==false' class='logindirect'>
-      <form @submit.prevent="login">
       <div class="loginwrap">
         <div class="section">
-        <!-- <div class='close close1' @click='login_modal=false'></div> -->
+          <!-- <div class='close close1' @click='login_modal=false'></div> -->
           <div class="container">
             <div class="row justify-content-center">
               <div class="col-12 text-center align-self-center">
@@ -18,50 +17,53 @@
                         <div class="center-wrap">
                           <div class="section text-center">
                             <h4 class="mb-4 pb-3">Log In</h4>
-                            <div class="form-group">
-                              <input type="email" name="logemail" class="form-style" placeholder="Your ID"
-                                id="logemail" autocomplete="off" v-model="username">
-                              <i class="input-icon fas fa-at"></i>
-                            </div>
-                            <div class="form-group mt-2">
-                              <input type="password" name="logpass" class="form-style" placeholder="Your Password"
-                                id="logpass" autocomplete="off" v-model="password">
-                              <i class="input-icon fas fa-key"></i>
-                            </div>
-                            <button class="btn mt-4" type="submit">
-                            submit
-                            </button>
-                            
-                            
+                            <form @submit.prevent="login">
+                              <div class="form-group">
+                                <input type="text" name="logemail" class="form-style" placeholder="Your ID"
+                                  id="logemail" autocomplete="off" v-model="username">
+                                <i class="input-icon fas fa-at"></i>
+                              </div>
+                              <div class="form-group mt-2">
+                                <input type="password" name="logpass" class="form-style" placeholder="Your Password"
+                                  id="logpass" autocomplete="off" v-model="password">
+                                <i class="input-icon fas fa-key"></i>
+                              </div>
+                              <button class="btn mt-4" type="submit">
+                                submit
+                              </button>
+                            </form>
                             <!-- 여기부터 회원가입 -->
                             <!-- <p class="mb-0 mt-4 text-center"><a href="#0" class="link">Forgot your password?</a></p> -->
                           </div>
                         </div>
-                        
                       </div>
                       <div class="card-back">
                         <div class="center-wrap">
                           <div class="section text-center">
                             <h4 class="mb-4 pb-3">Sign Up</h4>
-                            <div class="form-group">
-                              <input type="text" name="logname" class="form-style" placeholder="Your ID"
-                                id="logname" autocomplete="off" v-model="signupname">
-                              <i class="input-icon fas fa-at"></i>
-                            </div>
-                            <div class="form-group mt-2">
-                              <input type="password" name="logpass" class="form-style" placeholder="Your Password"
-                                id="logpass" autocomplete="off" v-model="signuppassword1">
-                              <i class="input-icon fas fa-key"></i>
-                            </div>
-                            
-                            <div class="form-group mt-2">
-                              <input type="password" name="logpass" class="form-style" placeholder="Check Password"
-                                id="logpass" autocomplete="off" v-model="signuppassword2">
-                              <i class="input-icon fas fa-key"></i>
-                            </div>
-                            <button class="btn mt-4" type="submit">
-                            submit
-                            </button>                          </div>
+                            <form @submit.prevent="signUp">
+                              <div class="form-group">
+                                <input type="text" name="logname" class="form-style" placeholder="Your ID" id="logname"
+                                  autocomplete="off" v-model="signupname">
+                                <i class="input-icon fas fa-at"></i>
+                              </div>
+                              <div class="form-group mt-2">
+                                <input type="password" name="logpass" class="form-style" placeholder="Your Password"
+                                  autocomplete="off" v-model="signuppassword1">
+                                <i class="input-icon fas fa-key"></i>
+                              </div>
+                              <div class="form-group mt-2">
+                                <input type="password" name="logpass" class="form-style" placeholder="Check Password"
+                                  autocomplete="off" v-model="signuppassword2">
+                                <i class="input-icon fas fa-key"></i>
+                              </div>
+                              
+                              <button class="btn mt-4" type="submit" value="SignUp">
+                                submit
+                              </button>
+                              <!-- <input type="submit" value="SignUp"> -->
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -72,9 +74,8 @@
           </div>
         </div>
       </div>
-      </form>
     </div>
-    
+
 
 
 
@@ -107,10 +108,12 @@
       로그인
     </div>
     <div v-if="isLogin==true" class='flex-item dropdown' style='flex-grow:1'>
-      <p class='dropdown-toggle mb-0' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+
+      <div class='dropdown-toggle mb-0' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
         style="font-seze:20px">
+            {{logincheck()}}
         MYPAGE
-      </p>
+      </div>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
         <li><a class="dropdown-item" href="#">내정보</a></li>
         <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>
@@ -128,11 +131,12 @@
       return {
         login_modal: false,
         mypage_modal: false,
-        username: null,
         password: null,
-        signupname:null,
-        signuppassword1:null,
-        signuppassword2:null,
+        username: null,
+
+        signupname: null,
+        signuppassword1: null,
+        signuppassword2: null,
       }
     },
     computed: {
@@ -155,6 +159,30 @@
         this.username = ''
         this.password = ''
       },
+
+      signUp(){
+        const signupname = this.signupname
+        const signuppassword1 = this.signuppassword1
+        const signuppassword2 = this.signuppassword2
+        const payload = { signupname, signuppassword1, signuppassword2}
+
+        this.$store.dispatch('signUp', payload)
+        this.signupname = ''
+        this.signuppassword1 = ''
+        this.signuppassword2 = ''
+      },
+
+
+
+logincheck() {
+  if (this.isLogin) {
+    if (!sessionStorage.getItem('loginAlertShown')) {
+      alert('로그인에 성공하였습니다.')
+      sessionStorage.setItem('loginAlertShown', true)
+    }
+  }
+},
+
       logout() {
         this.$store.dispatch('logout')
         this.mypage_modal = false
@@ -162,8 +190,9 @@
         alert('로그아웃되었습니다.')
       },
 
-  }}
-  
+    }
+  }
+
 </script>
 
 
@@ -241,7 +270,7 @@
   .logindirect {
     position: absolute;
     top: 70px;
-    right: 1000px;
+    right: 900px;
   }
 
   .close {
@@ -305,7 +334,7 @@
     background-color: #1f2029;
     position: absolute;
     z-index: 5;
-    border:solid 2px rgb(92, 92, 92);
+    border: solid 2px rgb(92, 92, 92);
     border-radius: 2%;
   }
 
@@ -514,7 +543,7 @@
     /* line-height: 48px; */
     text-align: left;
     color: #ffeba7;
-    
+
   }
 
   .form-group input:-ms-input-placeholder {
