@@ -3,10 +3,15 @@
     <Home01Navbar />
     <h1>Detail</h1>
     <p>글 번호 : {{ article?.id }}</p>
+    <p>작성자 : {{ article?.user.username }}</p>
     <p>제목 : {{ article?.title }}</p>
     <p>내용 : {{ article?.content }}</p>
     <p>작성시간 : {{ article?.created_at }}</p>
     <p>수정시간 : {{ article?.updated_at }}</p>
+    <div v-if="article?.user.username === userName">
+      <button @click="moveToUpdate">수정</button>
+      <button @click="deleteArticle">삭제</button>
+    </div>
   </div>
 </template>
 
@@ -25,6 +30,11 @@ export default {
       article: null
     }
   },
+  computed: {
+    userName() {
+      return this.$store.state.auth.userName
+    }
+  },
   created() {
     this.getArticleDetail()
   },
@@ -34,16 +44,33 @@ export default {
         method: 'get',
         url: `${API_URL}/community/${ this.$route.params.id }/`,
         headers: {
-          'Authorization' : `Token ${this.$store.state.token}`
+          'Authorization' : `Token ${this.$store.state.auth.token}`
         }
       })
-      .then((res) => {
-        console.log(res)
-        this.article = res.data
+      .then((response) => {
+        this.article = response.data
       })
-      .catch((err) => {
-        console.log(err)
+      .catch((error) => {
+        console.log(error)
       })
+    },
+    deleteArticle() {
+      axios({
+        method: 'delete',
+        url: `${API_URL}/community/${ this.$route.params.id }/`,
+        headers: {
+          'Authorization' : `Token ${this.$store.state.auth.token}`
+        }
+      })
+      .then(() => {
+        this.$router.push({name: 'CommunityView'})
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    moveToUpdate() {
+      this.$router.push({name: 'UpdateArticleView'})
     }
   }
 }
