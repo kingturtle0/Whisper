@@ -93,8 +93,8 @@
     <div class='flex-item' style='flex-grow:1'>
       ABOUT
     </div>
-    <div class='flex-item' style='flex-grow:1;'>
-      <router-link :to="{ name: 'RecommendView' }" class='router-link'>
+    <div class='flex-item leftToRight' style='flex-grow:1;'>
+      <router-link :to="{ name: 'RecommendView' }" class='router-link' id=''>
         RECOMMEND
       </router-link>
     </div>
@@ -103,7 +103,7 @@
         커뮤니티
       </router-link>
     </div>
-    <div v-if="isLogin==false" class='flex-item' style='flex-grow:1' @click='login_modal=true'>
+    <div v-if="isLogin==false" class='flex-item' style='flex-grow:1' @click='login_toggle()'>
       로그인
     </div>
     <div v-if="isLogin==true" class='flex-item dropdown' style='flex-grow:1'>
@@ -143,6 +143,13 @@ export default {
     }
   },
   methods: {
+    login_toggle(){
+      if (this.login_modal==false){
+        this.login_modal=true;
+      } else{
+        this.login_modal=false;
+      }
+    },
     closelogin() {
       this.login_modal = false
     },
@@ -189,7 +196,7 @@ export default {
           if (error.name !== 'NavigationDuplicated') {
             throw error;
           }
-        });
+        })
     }
   }
 }
@@ -649,4 +656,14 @@ export default {
     width: auto;
     display: block;
   }
+  div>a:hover{color:#ffea72;}
+  .dropdown-toggle:hover{
+    color:#ffea72;
+  }
+
+
+  a.router-link-exact-active {
+  color: #ffea72;
+}
+
 </style>

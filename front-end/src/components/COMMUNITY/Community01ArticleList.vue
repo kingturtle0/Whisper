@@ -11,9 +11,9 @@
           <th scope="col" class="article">작성일</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="article in displayedArticles" :key="article.id">
-          <td class="text-center">{{ article.id }}</td>
+       <tbody>
+        <tr v-for="(article, index) in displayedArticles" :key="article.id">
+          <td class="text-center">{{index+(currentPage-1)*5+1}}</td>
           <td>
             <a style="text-decoration:none; color:white;" :href="getArticleUrl(article.id)">{{ article.title }}</a>
           </td>
@@ -92,11 +92,11 @@ export default {
     setCurrentPage(pageNumber) {
       this.currentPage = pageNumber;
     },
-    getArticleUrl(id) {
+      getArticleUrl(id) {
       if (id === '#') {
         // Handle notice article URL
         // You can modify this method based on your actual URL structure
-        return '/notice';
+        return '/notice'; // '/notice'로 URL 반환
       } else {
         // Handle regular article URL
         return `/community/${id}`;
