@@ -9,7 +9,7 @@
     <p>작성시간 : {{ article?.created_at }}</p>
     <p>수정시간 : {{ article?.updated_at }}</p>
     <div v-if="article?.user.username === userName">
-      <button>수정</button>
+      <button @click="moveToUpdate">수정</button>
       <button @click="deleteArticle">삭제</button>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     userName() {
-      return this.$store.state.userName
+      return this.$store.state.auth.userName
     }
   },
   created() {
@@ -44,7 +44,7 @@ export default {
         method: 'get',
         url: `${API_URL}/community/${ this.$route.params.id }/`,
         headers: {
-          'Authorization' : `Token ${this.$store.state.token}`
+          'Authorization' : `Token ${this.$store.state.auth.token}`
         }
       })
       .then((response) => {
@@ -59,17 +59,18 @@ export default {
         method: 'delete',
         url: `${API_URL}/community/${ this.$route.params.id }/`,
         headers: {
-          'Authorization' : `Token ${this.$store.state.token}`
+          'Authorization' : `Token ${this.$store.state.auth.token}`
         }
       })
       .then(() => {
-        console.log(this.$route.params.id)
-        // localStorage.removeItem(this.$route.params.id);
-        history.back()
+        this.$router.push({name: 'CommunityView'})
       })
       .catch((error) => {
         console.log(error)
       })
+    },
+    moveToUpdate() {
+      this.$router.push({name: 'UpdateArticleView'})
     }
   }
 }

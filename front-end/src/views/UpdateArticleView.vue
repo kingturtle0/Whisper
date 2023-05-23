@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <Home01Navbar/>
-    <h1>게시글 작성</h1>
-    <form @submit.prevent="createArticle">
+    <h1>게시글 수정</h1>
+    <form @submit.prevent="updateArticle">
       <label for="title">제목 : </label>
       <input type="text" id="title" v-model.trim="title"><br>
       <label for="content">내용 : </label>
@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    createArticle() {
+    updateArticle() {
       const title = this.title
       const content = this.content
 
@@ -41,8 +41,8 @@ export default {
         return
       }
       axios({
-        method: 'post',
-        url: `${API_URL}/community/`,
+        method: 'put',
+        url: `${API_URL}/community/${ this.$route.params.id }/`,
         data: { title, content },
         headers: {
           'Authorization' : `Token ${this.$store.state.auth.token}`
