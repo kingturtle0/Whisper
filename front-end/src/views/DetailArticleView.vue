@@ -12,18 +12,24 @@
       <button @click="moveToUpdate">수정</button>
       <button @click="deleteArticle">삭제</button>
     </div>
+    <Community03CreateComment/>
+    <Community03CommentList/>
   </div>
 </template>
 
 <script>
 import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
+import Community03CreateComment from '@/components/COMMUNITY/Community03CreateComment.vue'
+import Community03CommentList from '@/components/COMMUNITY/Community03CommentList.vue'
 import axios from 'axios'
 const API_URL = 'http://127.0.0.1:8000'
 
 export default {
-  name: 'DetailView',
+  name: 'DetailArticleView',
   components: {
-    Home01Navbar
+    Home01Navbar,
+    Community03CreateComment,
+    Community03CommentList,
   },
   data() {
     return {
