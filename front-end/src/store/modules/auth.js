@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import router from '../../router'
 
 const API_URL = 'http://127.0.0.1:8000'
 
@@ -20,32 +21,28 @@ const auth =  {
     SAVE_USER_INFO(state, info) {
       state.token = info.token
       state.userName = info.userName
-      // router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함 => 만약 홈이 아니면 홈으로
     },
     LOGOUT(state) {
       state.token = null
+      router.push({name : 'HomeView'})
     }
   },
   actions: {
     signUp(context, payload) {
-      const username = payload.username
-      const password1 = payload.password1
-      const password2 = payload.password2
-
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/signup/`,
-        data: {
-          username, password1, password2
-        }
-      })
+      const { signupname, signuppassword1, signuppassword2 } = payload;
+    
+      axios
+        .post(`${API_URL}/accounts/signup/`, {
+          username: signupname,
+          password1: signuppassword1,
+          password2: signuppassword2
+        })
         .then((response) => {
           const auth = {
             token: response.data.key,
             userName: JSON.parse(response.config.data).username
           }
           context.commit('SAVE_USER_INFO', auth)
-          // context.commit('SAVE_USER_INFO', response.data.key)
         })
         .catch((error) => {
           console.log(error)

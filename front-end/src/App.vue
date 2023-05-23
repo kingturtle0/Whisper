@@ -10,8 +10,6 @@
 
 
 <style>
-
-
 #app {
 font-family: 'Noto Sans KR','Montserrat', sans-serif;
 /* font-family: 'Montserrat', 'Noto Sans KR', sans-serif; */
@@ -20,9 +18,6 @@ color:white;
 /* text-align: center; */
 /* color: #2c3e50; */
 }
-
-
-
 
 .container{
   width:1100px;
