@@ -4,7 +4,7 @@
       <Home01Navbar/>
       <Home02Main/>
       <Home03Rate/>
-      <AiView/>
+      <!-- <AiView/> -->
       <Home04Footer/>
     </div>
   </div>

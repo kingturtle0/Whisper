@@ -76,9 +76,6 @@
       </div>
     </div>
 
-
-
-
     <!-- NAVBAR 시작 -->
     <div class='flex-item' style='flex-grow:1'>
       <router-link :to="{ name: 'HomeView' }">
@@ -89,7 +86,9 @@
     <!-- 빈칸 grow -->
     <!-- </div> -->
     <div class='flex-item' style='flex-grow:1'>
-      <input type="text" placeholder="SEARCH" class="home-input">
+      <form @submit.prevent="SearchMovie">
+        <input type="text" placeholder="SEARCH" class="home-input" v-model="searchInput" @keyup.enter="SearchMovie">
+      </form>
     </div>
     <div class='flex-item' style='flex-grow:1'>
       ABOUT
@@ -108,10 +107,8 @@
       로그인
     </div>
     <div v-if="isLogin==true" class='flex-item dropdown' style='flex-grow:1'>
-
-      <div class='dropdown-toggle mb-0' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-        style="font-seze:20px">
-            {{logincheck()}}
+      <div class='dropdown-toggle mb-0' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="font-seze:20px">
+        {{logincheck()}}
         MYPAGE
       </div>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -124,91 +121,86 @@
 </template>
 
 <script>
+export default {
+  name: 'Home01Navbar',
+  data() {
+    return {
+      login_modal: false,
+      mypage_modal: false,
+      password: null,
+      username: null,
 
-  export default {
-    name: 'Home01Navbar',
-    data() {
-      return {
-        login_modal: false,
-        mypage_modal: false,
-        password: null,
-        username: null,
+      signupname: null,
+      signuppassword1: null,
+      signuppassword2: null,
 
-        signupname: null,
-        signuppassword1: null,
-        signuppassword2: null,
+      searchInput: '',
+    }
+  },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
+  methods: {
+    login_toggle(){
+      if (this.login_modal==false){
+        this.login_modal=true;
+      } else{
+        this.login_modal=false;
       }
     },
-    computed: {
-      isLogin() {
-        return this.$store.getters.isLogin
-      }
+    closelogin() {
+      this.login_modal = false
     },
-    methods: {
-      login_toggle(){
-        if (this.login_modal==false){
-          this.login_modal=true;
-        } else{
-          this.login_modal=false;
+    closemypage() {
+      this.mypage_modal = false
+    },
+    login() {
+      const username = this.username
+      const password = this.password
+      const payload = { username, password }
+      
+      this.$store.dispatch('login', payload)
+      this.username = ''
+      this.password = ''
+    },
+    signUp(){
+      const signupname = this.signupname
+      const signuppassword1 = this.signuppassword1
+      const signuppassword2 = this.signuppassword2
+      const payload = { signupname, signuppassword1, signuppassword2}
+
+      this.$store.dispatch('signUp', payload)
+      this.signupname = ''
+      this.signuppassword1 = ''
+      this.signuppassword2 = ''
+    },
+    logincheck() {
+      if (this.isLogin) {
+        if (!sessionStorage.getItem('loginAlertShown')) {
+          alert('로그인에 성공하였습니다.')
+          sessionStorage.setItem('loginAlertShown', true)
         }
-      },
-      closelogin() {
-        this.login_modal = false
-      },
-      closemypage() {
-        this.mypage_modal = false
-      },
-      login() {
-        const username = this.username
-        const password = this.password
-        const payload = { username, password }
-        this.$store.dispatch('login', payload)
-        this.username = ''
-        this.password = ''
-      },
-
-      signUp(){
-        const signupname = this.signupname
-        const signuppassword1 = this.signuppassword1
-        const signuppassword2 = this.signuppassword2
-        const payload = { signupname, signuppassword1, signuppassword2}
-
-        this.$store.dispatch('signUp', payload)
-        this.signupname = ''
-        this.signuppassword1 = ''
-        this.signuppassword2 = ''
-      },
-
-
-
-logincheck() {
-  if (this.isLogin) {
-    if (!sessionStorage.getItem('loginAlertShown')) {
-      alert('로그인에 성공하였습니다.')
-      sessionStorage.setItem('loginAlertShown', true)
+      }
+    },
+    logout() {
+      this.$store.dispatch('logout')
+      this.mypage_modal = false
+      this.login_modal = false
+      alert('로그아웃되었습니다.')
+    },
+    SearchMovie() {
+      this.$router.push({ name: 'SearchView', query: {keyword: this.searchInput} })
+        .catch(error => {
+          if (error.name !== 'NavigationDuplicated') {
+            throw error;
+          }
+        })
     }
   }
-},
-
-      logout() {
-        this.$store.dispatch('logout')
-        this.mypage_modal = false
-        this.login_modal = false
-        alert('로그아웃되었습니다.')
-      },
-
-    }
-  }
-
+}
 </script>
-
-
-
-
-
-
-
-
 
 <style>
   .black {

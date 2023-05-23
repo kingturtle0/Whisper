@@ -96,8 +96,6 @@ export default new Vuex.Store({
 		changeLoading(context, flag) {
 			context.commit("CHANGE_LOADING", flag);
 		},
-    
-
   },
   modules: {
     auth
