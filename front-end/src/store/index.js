@@ -106,24 +106,22 @@ export default new Vuex.Store({
 			context.commit("CHANGE_LOADING", flag);
 		},
     signUp(context, payload) {
-      const username = payload.username
-      const password1 = payload.password1
-      const password2 = payload.password2
-
-      axios({
-        method: 'post',
-        url: `${API_URL}/accounts/signup/`,
-        data: {
-          username, password1, password2
-        }
-      })
+      const { signupname, signuppassword1, signuppassword2 } = payload;
+    
+      axios
+        .post(`${API_URL}/accounts/signup/`, {
+          username: signupname,
+          password1: signuppassword1,
+          password2: signuppassword2
+        })
         .then((response) => {
-          context.commit('SAVE_TOKEN', response.data.key)
+          context.commit('SAVE_TOKEN', response.data.key);
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
+    
     login(context, payload) {
       const username = payload.username
       const password = payload.password
