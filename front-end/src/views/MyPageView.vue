@@ -1,19 +1,65 @@
 <template>
   <div class="background">
     <div class="container">
-      <Home01Navbar/>
-<section class='background'>
-  <div class="profilecontainer">
-    
-      <div class="userprofile">
-        Information
+      <Home01Navbar />
+      <section class="background">
+        <div class="profilecontainer">
+          <div v-if="modal === false" class="userprofile">
+            내 정보
+          </div>
 
-      </div>
+          <img v-if="modal" src="@/assets/nyancat1.gif" alt="" class='modal-gif'>
+          <!-- <img v-if="modal" src="@/assets/AI_giphy.gif" alt="" class='modal-gif'> -->
+          <div v-if="modal" class="mt-100 mb-4 mb-md-0 zindex fade-in" >
+            <div @click="modal_toggle" class="navy pad" >
+              <p class="navy mb-4" style="font-size:25px">
+                <span @click="modal_toggle" class="close"></span>
+                { user }님의 취향분석
+              </p>
+                
+                <p class="navy mb-1" style="font-size:20px;">로맨스</p>
+                <div class="navy progress rounded mb-4" style="height: 25px;">
+                  <div class="navy progress-bar" role="progressbar" style="width: 75%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                
+                <p class="navy mb-1" style="font-size:20px;">액션</p>
+                <div class="navy progress rounded mb-4" style="height: 25px;">
+                  <div class="navy progress-bar" role="progressbar" style="width: 90%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="navy mb-1" style="font-size:20px;">음악</p>
+                <div class="navy progress rounded mb-4" style="height: 25px;">
+                  <div class="navy progress-bar" role="progressbar" style="width: 35%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="navy mb-1" style="font-size:20px;">공포</p>
+                <div class="navy progress rounded mb-4" style="height: 25px;">
+                  <div class="navy progress-bar" role="progressbar" style="width: 65%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="navy mb-1" style="font-size:20px;">애니메이션</p>
+                <div class="navy progress rounded mb-4" style="height: 25px;">
+                  <div class="navy progress-bar" role="progressbar" style="width: 55%" aria-valuenow="80"
+                    aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
 
+              </div>
+              <!-- 버튼 -->
+              <!-- <div style="display: flex; justify-content: center;"> -->
+              <div class="text-center">
+                <img class='cat' src="@/assets/nyancat1.gif" alt="">
+                <div class='cat-content'>영화 추천받기</div>
+              </div>
+            </div>
+<!-- 모달 끝 -->
+
+
+
+    <div v-if='modal==false' class="row">
+      <div class="col-lg-4">
 
 <!------- 왼쪽상단 ------->
-    <div class="row">
-      <div class="col-lg-4">
         <div class="mb-4">
           <div class="text-center navy user">
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
@@ -21,89 +67,46 @@
             <h5 class="my-3 navy">유저네임</h5>
             <p class="mb-1 navy">Full Stack Developer</p>
             <p class="mb-4 navy">Bay Area, San Francisco, CA</p>
-            <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-primary">Follow</button>
+            <div class="d-flex justify-content-center mb-1">
+              <div class=''>
+                <img @click='modal_toggle' class='gif' src="@/assets/AI_giphy.gif" alt="">
+              </div>
+              <!-- <button type="button" class="btn btn-primary">내영화 취향 분석</button> -->
             </div>
+            <div>내 취향 분석하기</div>
             
           </div>
         </div>
+     </div>
 
 
-<!------- 왼쪽하단 ------->
-        <div class="navy card mb-lg-0">
-          <div class="card-body p-0">
-            <ul class="list-group list-group-flush rounded-2">
-              <li class="navy list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0">https://mdbootstrap.com</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                <p class="mb-0">@mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-            </ul>
+<!------- 우측상단 카드 좋아요 ------->
+  <div class="col-lg-8">
+    <div class="mb-4">
+      <div class="navy pad">
+        <div class="row">
+          <!-- 상단 4장의 이미지 -->
+          <div class="col-md-3" v-for="i in 4" :key="i">
+            <div class="card-image" style="height: 200px; background-color: white;"></div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <!-- 하단 4장의 이미지 -->
+          <div class="col-md-3" v-for="i in 4" :key="i">
+            <div class="card-image" style="height: 200px; background-color: white;"></div>
           </div>
         </div>
       </div>
+    </div>
 
 
 
 
-<!------- 우측상단 ------->
-      <div class="col-lg-8">
-        <!------- 우측하단 ------->
-        <div class="row">
 
-            <div class="mb-4 mb-md-0">
-              <div class="navy pad">
-                <p class="navy mb-4" style="font-size:25px">
-                  좋아요한 영화
-                </p>
-                <p class="navy mb-1" style="font-size:15px;">로맨스</p>
-                <div class="navy progress rounded mb-4" style="height: 6px;">
-                  <div class="navy progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
 
-                <p class="navy mb-1" style="font-size:15px;">액션</p>
-                <div class="navy progress rounded mb-4" style="height: 6px;">
-                  <div class="navy progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                
-                <p class="navy mb-1" style="font-size:15px;">음악</p>
-                <div class="navy progress rounded mb-4" style="height: 6px;">
-                  <div class="navy progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                
-                <p class="navy mb-1" style="font-size:15px;">공포</p>
-                <div class="navy progress rounded mb-4" style="height: 6px;">
-                  <div class="navy progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                
-                <p class="navy mb-1" style="font-size:15px;">애니메이션</p>
-                <div class="navy progress rounded mb-2" style="height: 6px;">
-                  <div class="navy progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                    aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
+
+  <!-------- 우측하단 댓글 내역 -------->
         <div class="mb-4 mt-20">
           <div class="navy pad">
 
@@ -169,29 +172,20 @@
                 <p class="navy mb-0">4444444444444444444444</p>
               </div>
             </div>
-            
-
-
-
           </div>
-
-
-
-
-
         </div>
+
+
+
+
       </div>
-
-
-
-
-
     </div>
   </div>
 </section>
     </div>
   </div>
 </template>
+
 
 <script>
 import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
@@ -204,25 +198,20 @@ export default {
     return {
       username: 'John Doe',
       email: 'johndoe@example.com',
-      // profileImage: require('@/assets/profile.jpg'),
-      favoriteMovies: [
-        { id: 1, title: '영화 제목 1' },
-        { id: 2, title: '영화 제목 2' },
-        { id: 3, title: '영화 제목 3' },
-        { id: 4, title: '영화 제목 4' },
-        { id: 5, title: '영화 제목 5' },
-        { id: 6, title: '영화 제목 6' },
-      ],
-      comments: [
-        { id: 1, text: '댓글 내용 1' },
-        { id: 2, text: '댓글 내용 2' },
-        { id: 3, text: '댓글 내용 3' },
-        { id: 4, text: '댓글 내용 4' },
-        { id: 5, text: '댓글 내용 5' },
-      ],
+      modal:false,
+      
     };
   },
-};
+  methods:{
+    modal_toggle() {
+      if (this.modal==false) {
+    this.modal=true;
+    } else{
+      this.modal=false;
+    }
+  },
+}}
+
 </script>
 
 <style>
@@ -231,14 +220,12 @@ section{
 }
 
 .userprofile{  
-  /* background-color: #212529; */
   font-size: 25px;
   font-weight: 500;
   color: white;
   margin-bottom: 10px;
   margin-top: 35px;
-  /* border: solid white 1px; */
-  /* border-radius: 10%; */
+
 }
 .title{
   font-size:15px;
@@ -268,12 +255,73 @@ section{
 
 .pad{
   padding:15px;
-  border-radius: 3%;
+  border-radius: 5px;
 }
 
 .user{
-  height: 380px;
-  border-radius: 3%;
+  height: 400px;
+  border-radius: 10px;
 }
 
+.gif{
+  width: 18%;
+  border-radius: 90%;
+}
+
+.mt-100{
+  margin-top: 100px;
+}
+
+
+.close {width:50px;height: 50px;}
+.close:before, .close:after {position: absolute;right: 380px;content:' ';height: 20px;width: 2px;background-color: #ffffff;}
+.close:before {transform: rotate(45deg);}
+.close:after {transform: rotate(-45deg);}
+
+.cat{
+  width:15%;
+  border-radius: 30px;
+  margin-top: 10px;
+}
+
+.cat-content{
+  font-size: 17px;
+}
+
+
+
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modal-content {
+  animation: fadeIn 0.5s;
+  opacity: 0;
+}
+
+.modal-gif{
+  animation: fadeOut 2.5s;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* width: 1000px;
+  height: 500px; */
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>
