@@ -53,31 +53,31 @@
 
 <script>
 export default {
-  name: 'RecommendView',
+  name: 'Home02Main',
   methods: {
     moveToRomance() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'romance'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '로맨스'} })
     },
     moveToMusic() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'music'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '음악'} })
     },
     moveToSF() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'sf'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'SF'} })
     },
     moveToAction() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'action'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '액션'} })
     },
     moveToHorror() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'horror'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '공포'} })
     },
     moveToHistory() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'history'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '역사'} })
     },
     moveToFamily() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'family'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '가족'} })
     },
     moveToAnimation() {
-      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'animation'} })
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: '애니메이션'} })
     },
   }
 }

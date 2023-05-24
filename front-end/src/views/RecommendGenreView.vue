@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Home01Navbar/>
-    <h3 class="ms-5 my-4">장르</h3>
+    <h3 class="my-5 text-center">{{ this.genre }} 영화 추천</h3>
     <ul class="row">
       <RecommendMovieCard v-for="movie in movies" :key="movie.movieId" :movie="movie"/>
     </ul>
@@ -23,6 +23,7 @@ export default {
   data() {
     return {
       movies: [],
+      genre: this.$route.params.genre,
     }
   },
   created() {
@@ -39,28 +40,10 @@ export default {
       })
         .then((response) => {
           const genre = this.$route.params.genre
-          let keyWord = ''
-          if (genre === 'romance') {
-            keyWord = '로맨스'
-          } else if (genre === 'action') {
-            keyWord = '액션'
-          } else if (genre === 'sf') {
-            keyWord = 'SF'
-          } else if (genre === 'music') {
-            keyWord = '음악'
-          } else if (genre === 'horror') {
-            keyWord = '공포'
-          } else if (genre === 'history') {
-            keyWord = '역사'
-          } else if (genre === 'family') {
-            keyWord = '가족'
-          } else if (genre === 'animation') {
-            keyWord = '애니메이션'
-          }
           const parsedMovies = response.data.filter((movie) => {
             const genres = movie.genres
             for (const key in genres) {
-              if (keyWord.includes(genres[key])) {
+              if (genre.includes(genres[key])) {
                 return true
               }
             }

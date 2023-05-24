@@ -9,41 +9,24 @@
     <div class='article-container'>
       <h3 class='ml-55 mt-50 mb-20'><i class='fa fa-film'></i> 영화수다</h3>
       <div class="ml-55 article-box">
-
-
-
-    <!-- <h1>Detail</h1> -->
-    <div class='title'>{{ article?.title }}</div>
-      <div>
-    <!-- <p>글 번호 : {{ article?.id }}</p> -->
-
-      <div class='title-user'>
-        <span class='title-date2'>
-        <strong style="color:white; margin-left:5px;">{{ article?.user.username }}</strong>
-        </span>
-        <span class='title-date'>
-          <strong style='color:white; margin-left:7px;'>{{formatDate(article?.created_at) }}</strong>
-        </span> 
+        <div class='title'>{{ article?.title }}</div>
+        <div>
+          <div class='title-user'>
+            <span class='title-date2'>
+              <strong style="color:white; margin-left:5px;">{{ article?.user.username }}</strong>
+            </span>
+            <span class='title-date'>
+              <strong style='color:white; margin-left:7px;'>{{formatDate(article?.created_at) }}</strong>
+            </span> 
+          </div>
+        </div>
+        <hr class='my-hr'>
+        <p class='content'>{{ article?.content }}</p>
+        <div v-if="article?.user.username === userName" class="d-flex justify-content-end align-items-end btn-container">
+          <button @click="moveToUpdate" class="btn btn-outline-light article-btn">수정</button>
+          <button @click="deleteArticle" class="btn btn-outline-light article-btn">삭제</button>
+        </div>
       </div>
-<!-- <div class='title-user'>작성시간 : </div> -->
-      </div>
-    <hr class='my-hr'>
-
-    <p class='content'>{{ article?.content }}</p>
-    <!-- <p>작성시간 : {{ article?.created_at }}</p>
-    <p>수정시간 : {{ article?.updated_at }}</p> -->
-    </div>
-    
-    <div v-if="article?.user.username === userName">
-      <button @click="moveToUpdate">수정</button>
-      <button @click="deleteArticle">삭제</button>
-    </div>
-
-
-
-
-
-
     </div>
 
     <Community03CommentList/>
@@ -81,10 +64,10 @@ export default {
   methods: {
   formatDate(date) {
     if (date) {
-      const options = { month: 'short', day: 'numeric' };
-      return new Date(date).toLocaleDateString('ko-KR', options);
+      const options = { month: 'short', day: 'numeric' }
+      return new Date(date).toLocaleDateString('ko-KR', options)
     }
-    return '';
+    return ''
   },
     getArticleDetail() {
       axios({
@@ -123,9 +106,7 @@ export default {
 }
 </script>
 
-
 <style scoped>
-
 .my-hr{
   margin-top: 7px;
   border: 0;
@@ -141,10 +122,9 @@ export default {
   height: 500px;
   width: 88%;
   background-color: rgb(33, 33, 37);
-  padding:15px;
+  padding:30px;
   border-radius: 1%;
   margin: 0 auto;
-  
 }
 
 .title{
@@ -161,7 +141,6 @@ export default {
   /* margin-left: 10px; */
 }
 
-
 .title-date{
   font-size:15px;
   color:whitesmoke
@@ -175,8 +154,15 @@ export default {
   margin-top: 15px;
 }
 
+.btn-container {
+  height: 60%;
+}
 
-
-
-
+.article-btn {
+  border-radius: 5px;
+  border: none;
+  margin-left: 5px;
+  font-size: 16px;
+  padding:6px;
+}
 </style>

@@ -18,6 +18,7 @@ export default new Vuex.Store({
   ],
   state: {
     articles: [],
+    comments: [],
     video: [],
     movie: [],
     loading: false,
@@ -29,6 +30,9 @@ export default new Vuex.Store({
   mutations: {
     GET_ARTICLES(state, articles) {
       state.articles = articles
+    },
+    GET_COMMENTS(state, comments) {
+      state.comments = comments
     },
     GET_VIDEO(state, video) {
 			state.video = video
@@ -55,6 +59,24 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error)
         })
+    },
+    getComments(context, id) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/comments/`,
+        headers: {
+          'Authorization' : `Token ${context.state.auth.token}`
+        }
+      })
+      .then((response) => {
+        const parsedComments = response.data.filter((comment) => {
+          return id === String(comment.article)
+        })
+        context.commit('GET_COMMENTS', parsedComments)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     },
     getVideo(context, word) {
 			context.dispatch("changeLoading", true)
