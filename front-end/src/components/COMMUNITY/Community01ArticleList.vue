@@ -12,8 +12,8 @@
         </tr>
       </thead>
        <tbody>
-        <tr v-for="(article, index) in displayedArticles" :key="article.id">
-          <td class="text-center">{{index+(currentPage-1)*5+1}}</td>
+        <tr v-for="(article, index) in displayedArticles" :key="index">
+          <td class="text-center">{{index+(currentPage-1)*itemsPerPage+1}}</td>
           <td>
             <a style="text-decoration:none; color:white;" :href="getArticleUrl(article.id)">{{ article.title }}</a>
           </td>
@@ -28,8 +28,6 @@
         <router-link class='write' :to="{ name: 'CreateArticleView' }"><i class="fas fa-pen fa-sm"></i> 쓰기</router-link>
       </button>
     </div>
-
-
 
     <nav aria-label="Page navigation example" class="">
       <ul class="pagination">
@@ -54,35 +52,40 @@
 <script>
 
 export default {
-  name: 'ArticleList',
+  name: 'Community01ArticleList',
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 5,
+      itemsPerPage: 10,
     };
   },
   computed: {
     articles() {
       return this.$store.state.articles;
     },
+    sortedArticles() {
+      return this.articles.slice().sort((a, b) => {
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+    },
     displayedArticles() {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      const slicedArticles = this.articles.slice(startIndex, endIndex);
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage
+      const endIndex = startIndex + this.itemsPerPage
+      return this.sortedArticles.slice(startIndex, endIndex)
+      // const slicedArticles = this.articles.slice(startIndex, endIndex)
+      // return slicedArticles
       
-      if (this.currentPage === 1) {
-        const noticeArticle = {
-          id: '#',
-          title: '공지글입니다',
-          user: {
-            username: '운영자'
-          },
-          created_at: '2023-05-01'
-        };
-        slicedArticles.unshift(noticeArticle);
-      }
-      
-      return slicedArticles;
+      // if (this.currentPage === 1) {
+      //   const noticeArticle = {
+      //     id: '#',
+      //     title: '공지글입니다',
+      //     user: {
+      //       username: '운영자'
+      //     },
+      //     created_at: '2023-05-01'
+      //   };
+      //   slicedArticles.unshift(noticeArticle);
+      // }
     },
     totalPages() {
       return Math.ceil(this.articles.length / this.itemsPerPage);
@@ -92,32 +95,31 @@ export default {
     setCurrentPage(pageNumber) {
       this.currentPage = pageNumber;
     },
-      getArticleUrl(id) {
-      if (id === '#') {
-        // Handle notice article URL
-        // You can modify this method based on your actual URL structure
-        return '/notice'; // '/notice'로 URL 반환
-      } else {
-        // Handle regular article URL
-        return `/community/${id}`;
-      }
+    getArticleUrl(id) {
+      // if (id === '#') {
+      //   // Handle notice article URL
+      //   // You can modify this method based on your actual URL structure
+      //   return '/notice'; // '/notice'로 URL 반환
+      // } else {
+      //   // Handle regular article URL
+      // }
+      return `/community/${id}`;
     },
     formatDate(dateString) {
-      if (dateString === '2023-05-01') {
-        return '5월 1일';
-      } else {
-        const date = new Date(dateString);
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        return `${month}월 ${day}일`;
-      }
+      // if (dateString === '2023-05-01') {
+      //   return '5월 1일';
+      // } else {
+      //   }
+      const date = new Date(dateString);
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      return `${month}월 ${day}일`;
     },
   },
-};
+}
 </script>
 
 <style>
-
 .mt-50 {
   margin-top: 50px;
 }
@@ -144,7 +146,6 @@ export default {
   width:25%
 }
 
-
 a {
   text-decoration: none;
 }
@@ -162,7 +163,6 @@ tbody td {
   font-weight: 500;
   color: white;
 }
-
 
 /* 페이지네이션 색상 */
 .pagination > li > a
@@ -193,5 +193,4 @@ tbody td {
     background-color: #5A4181 !Important;
     border: solid 1px #5A4181;
 }
-
 </style>

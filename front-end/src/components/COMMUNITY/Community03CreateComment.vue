@@ -40,7 +40,8 @@ export default {
           }
         })
         .then(() => {
-          console.log('create comment!')
+          this.$store.dispatch('getComments', this.$route.params.id)
+          this.content = ''
         })
         .catch((error) => {
           console.log(error)
@@ -72,7 +73,7 @@ form {
 
 input {
   font-size: 15px;
-  color: #222222;
+  color: white;
   width: 100%;
   border: none;
   border-bottom: solid #aaaaaa 1px;

@@ -9,27 +9,19 @@
 
 <script>
 import Community03CommentListItem from '@/components/COMMUNITY/Community03CommentListItem.vue'
-import axios from 'axios'
-const API_URL = 'http://127.0.0.1:8000'
 
 export default {
   name: 'Community03CommentList',
   components: {
     Community03CommentListItem,
   },
-  data() {
-    return {
-      comments: []
-    }
-  },
-  // watch: { 댓글 생성 or 수정 or 삭제 되면 다시 댓글 목록 조회하도록
-  //   '$route.query.keyword'() {
-  //     this.searchMovie()
-  //   }
-  // },
   computed: {
     userName() {
       return this.$store.state.auth.userName
+    },
+    comments() {
+      const comments = this.$store.state.comments
+      return comments.reverse()
     }
   },
   created() {
@@ -37,22 +29,7 @@ export default {
   },
   methods: {
     getComments() {
-      axios({
-        method: 'get',
-        url: `${API_URL}/community/comments/`,
-        headers: {
-          'Authorization' : `Token ${this.$store.state.auth.token}`
-        }
-      })
-      .then((response) => {
-        const parsedComments = response.data.filter((comment) => {
-          return this.$route.params.id === String(comment.article)
-        })
-        this.comments = parsedComments
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+      this.$store.dispatch('getComments', this.$route.params.id)
     },
   }
 }

@@ -11,7 +11,7 @@
           <div class="main-title-eng">{{ data[selectedIndex].english_title }}</div>
           <div class="title-container">
             <div class="detail-title">개봉일</div>
-            <div class="detail-content">{{ data[selectedIndex].release_data }}</div>
+            <div class="detail-content">{{ data[selectedIndex].release_date }}</div>
           </div>
           <div class="title-container">
             <div class="detail-title">장르</div>
@@ -21,10 +21,10 @@
             <div class="detail-title">러닝타임</div>
             <div class="detail-content">{{ data[selectedIndex].running_time }}</div>
           </div>
-          <div class="title-container">
+          <!-- <div class="title-container">
             <div class="detail-title">감독</div>
             <div class="detail-content">{{ data[selectedIndex].director }}</div>
-          </div>
+          </div> -->
           <div class="title-container">
             <div class="detail-title">평점</div>
             <div class="detail-content">{{ data[selectedIndex].rating }}</div>
@@ -72,24 +72,75 @@
 </template>
 
 <script>
-import rank from '@/assets/rank.js'
+// import rank from '@/assets/rank.js'
 import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
-
+import axios from 'axios'
+const API_KEY = '5db44a1f1708b49ae75a1bb65957bfac'
+const url = 'https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1'
 
 export default {
-  name: 'Home02Main',
+  name: 'RecommendView',
   components: {
     Home01Navbar
   },
   data() {
     return {
-      data: rank,
+      data: [],
       selectedIndex: 0
     }
   },
+  created() {
+    this.getTopRatedMovies()
+  },
   methods: {
     changeSelectedIndex(index) {
-      this.selectedIndex = index;
+      this.selectedIndex = index
+    },
+    getTopRatedMovies() {
+      axios({
+        method: 'get',
+        url: url,
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1ZGI0NGExZjE3MDhiNDlhZTc1YTFiYjY1OTU3YmZhYyIsInN1YiI6IjYzZDMxNzMyMDMxYTFkMDBhMTFmNDYxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.Y8DuQtADhIbmwKDbBIvxd4WxlLAGlKejCyBbtGqmn74'
+        }
+      })
+        .then((response) => {
+          const json = response.data;
+          const topMovies = json.results.slice(0, 10)
+
+          const movieDetailsPromises = topMovies.map((movie) => {
+            const movieId = movie.id
+            const detailUrl = `https://api.themoviedb.org/3/movie/${movieId}?language=ko-KR&api_key=${API_KEY}`
+
+            return axios.get(detailUrl)
+              .then(detailResponse => {
+                const detailJson = detailResponse.data;
+                
+                const movieDetail = {
+                  movie_id: detailJson.id,
+                  title: detailJson.title,
+                  english_title: detailJson.original_title,
+                  release_date: detailJson.release_date,
+                  genre: detailJson.genres.map(genre => genre.name).join(', '),
+                  running_time: `${detailJson.runtime}분`,
+                  rating: detailJson.vote_average,
+                  image: `https://image.tmdb.org/t/p/w500${detailJson.poster_path}`,
+                }
+                console.log(movieDetail)
+                return movieDetail
+              })
+          })
+
+          return Promise.all(movieDetailsPromises)
+        })
+        .then(movieDetails => {
+          this.data = movieDetails
+        })
+        .catch(error => {
+          console.error('error:', error)
+        });
+
     }
   }
 }

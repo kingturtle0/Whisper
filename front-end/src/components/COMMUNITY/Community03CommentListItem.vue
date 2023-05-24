@@ -1,26 +1,26 @@
 <template>
   <div>
     <div class='comment-container' v-if="!isUpdating">
-
       <div class='comment-box'>
-      <span>
-        {{ comment?.user.username }} : {{ comment?.content }}
-        <span class='ml-10' v-if="comment?.user.username === userName">
-          <button class='mybtn' @click="startUpdate">수정</button>
-          <button class='mybtn' @click="deleteComment">삭제</button>
+        <span>
+          {{ comment?.user.username }} : {{ comment?.content }}
+          <span class='ml-10' v-if="comment?.user.username === userName">
+            <button class='mybtn' @click="startUpdate">수정</button>
+            <button class='mybtn' @click="deleteComment">삭제</button>
+          </span>
+          <!-- <hr class='my-hr'> -->
         </span>
-        <!-- <hr class='my-hr'> -->
-      </span>
-
-    </div>
+      </div>
     </div>
 
-    <div v-else>
-      <form @submit.prevent="updateComment">
-        <label>{{ userName }} : </label>
-        <input required type="text" maxlength="140" v-model.trim="updatedComment">
-      </form>
-      <button @click="cancelUpdate">취소</button>
+    <div v-else class="comment-container">
+      <div class="comment-box d-flex">
+        <form @submit.prevent="updateComment">
+          <label>{{ userName }} : </label>
+          <input required type="text" maxlength="140" v-model.trim="updatedComment" class="ml-10">
+        </form>
+        <button class="mybtn" @click="cancelUpdate">취소</button>
+      </div>
     </div>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
       })
       .then(() => {
         this.isUpdating = false
+        this.$store.dispatch('getComments', this.$route.params.id)
       })
       .catch((error) => {
         console.log(error)
@@ -81,7 +82,7 @@ export default {
         }
       })
       .then(() => {
-        console.log('delete comment')
+        this.$store.dispatch('getComments', this.$route.params.id)
       })
       .catch((error) => {
         console.log(error)
@@ -128,6 +129,12 @@ export default {
   font-size: 12px;
   padding:5px;
   
+}
+
+.mybtn:hover {
+  background-color: #0e1318;
+  color: white;
+  transition: all 0.2s ease-in-out;
 }
 
 .ml-10{
