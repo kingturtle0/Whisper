@@ -40,7 +40,7 @@ export default {
         .then((response) => {
           const genre = this.$route.params.genre
           let keyWord = ''
-          if (genre === 'love') {
+          if (genre === 'romance') {
             keyWord = '로맨스'
           } else if (genre === 'action') {
             keyWord = '액션'
@@ -52,8 +52,8 @@ export default {
             keyWord = '공포'
           } else if (genre === 'history') {
             keyWord = '역사'
-          } else if (genre === 'comedy') {
-            keyWord = '코미디'
+          } else if (genre === 'family') {
+            keyWord = '가족'
           } else if (genre === 'animation') {
             keyWord = '애니메이션'
           }
