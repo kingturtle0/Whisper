@@ -110,3 +110,11 @@ def create_comment(request, article_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(article=article, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_comment_list(request):
+    comments = Comment.objects.filter(user=request.user)
+    serializer = CommentListSerializer(comments, many=True)
+    return Response(serializer.data)
