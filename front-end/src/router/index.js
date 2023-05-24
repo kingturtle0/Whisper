@@ -10,6 +10,7 @@ import DetailArticleView from '@/views/DetailArticleView.vue'
 import UpdateArticleView from '@/views/UpdateArticleView.vue'
 import MoviesView from '@/views/MoviesView.vue'
 import DetailMovieView from '@/views/DetailMovieView.vue'
+import MyPageView from '@/views/MyPageView.vue'
 
 Vue.use(VueRouter)
 
@@ -63,6 +64,11 @@ const routes = [
     path: '/movies/:videoId',
     name: 'DetailMovieView',
     component: DetailMovieView,
+  },
+  {
+    path: '/MyPageView',
+    name: 'MyPageView',
+    component: MyPageView,
   },
   // {
   //   path: '/about',

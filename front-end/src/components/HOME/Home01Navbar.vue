@@ -2,7 +2,7 @@
   <div class='flex-container'>
     <div v-if='login_modal==true && isLogin==false' class='logindirect'>
       <div class="loginwrap">
-        <div class="section">
+        <div class="section"> 
           <!-- <div class='close close1' @click='login_modal=false'></div> -->
           <div class="container">
             <div class="row justify-content-center">
@@ -95,7 +95,7 @@
     </div>
     <div class='flex-item leftToRight' style='flex-grow:1;'>
       <router-link :to="{ name: 'RecommendView' }" class='router-link' id=''>
-        RECOMMEND
+        BOXOFFICE
       </router-link>
     </div>
     <div class='flex-item' style='flex-grow:1'>
@@ -112,7 +112,13 @@
         MYPAGE
       </div>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">내정보</a></li>
+        <li><a class="dropdown-item" href="#">
+          <router-link :to="{ name: 'MyPageView' }" class='router-link' style="color:black">
+            내정보
+          </router-link>
+          
+          </a>
+        </li>
         <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>
       </ul>
     </div>
