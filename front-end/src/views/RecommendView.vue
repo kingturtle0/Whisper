@@ -7,32 +7,28 @@
       <div class="flex-item" style="flex-grow: 2"></div>
       <div class="flex-item-main mt-40" style="flex-grow: 4; width: 450px">
         <div class="column"> 
-          <div class="main-title">{{ data[selectedIndex].title }}</div>
-          <div class="main-title-eng">{{ data[selectedIndex].english_title }}</div>
+          <div class="main-title">{{ data[selectedIndex]?.title }}</div>
+          <div class="main-title-eng">{{ data[selectedIndex]?.english_title }}</div>
           <div class="title-container">
             <div class="detail-title">개봉일</div>
-            <div class="detail-content">{{ data[selectedIndex].release_date }}</div>
+            <div class="detail-content">{{ data[selectedIndex]?.release_date }}</div>
           </div>
           <div class="title-container">
             <div class="detail-title">장르</div>
-            <div class="detail-content">{{ data[selectedIndex].genre }}</div>
+            <div class="detail-content">{{ data[selectedIndex]?.genre }}</div>
           </div>
           <div class="title-container">
             <div class="detail-title">러닝타임</div>
-            <div class="detail-content">{{ data[selectedIndex].running_time }}</div>
+            <div class="detail-content">{{ data[selectedIndex]?.running_time }}</div>
           </div>
-          <!-- <div class="title-container">
-            <div class="detail-title">감독</div>
-            <div class="detail-content">{{ data[selectedIndex].director }}</div>
-          </div> -->
           <div class="title-container">
             <div class="detail-title">평점</div>
-            <div class="detail-content">{{ data[selectedIndex].rating }}</div>
+            <div class="detail-content">{{ data[selectedIndex]?.rating }}</div>
           </div>
         </div>
       </div>
       <div class="flex-item" style="flex-grow: 3">
-        <img :src="data[selectedIndex].image" alt="LOGO" class="main-poster">
+        <img :src="posterSrc + data[selectedIndex]?.poster_path" alt="LOGO" class="main-poster" @click="moveToDetail">
       </div>
 
       <!-- 오른쪽마진 -->
@@ -52,7 +48,7 @@
           <div class="container">
             <div class="row" style="width: 95%; margin: auto">
               <div v-for="index in 5" :key="index" class="col">
-                <img :src="data[index - 1].image" class="rate-poster" @mouseover="changeSelectedIndex(index - 1)" :class="{ 'rate-select': selectedIndex === index - 1 }">
+                <img :src="posterSrc + data[index - 1]?.poster_path" class="rate-poster" @mouseover="changeSelectedIndex(index - 1)" :class="{ 'rate-select': selectedIndex === index - 1 }">
               </div>
             </div>
           </div>
@@ -61,7 +57,7 @@
           <div class="container">
             <div class="row" style="width: 95%; margin: auto">
               <div v-for="index in 5" :key="index" class="col">
-                <img :src="data[index + 4].image" class="rate-poster" @mouseover="changeSelectedIndex(index + 4)" :class="{ 'rate-select': selectedIndex === index + 4 }">
+                <img :src="posterSrc + data[index + 4]?.poster_path" class="rate-poster" @mouseover="changeSelectedIndex(index + 4)" :class="{ 'rate-select': selectedIndex === index + 4 }">
               </div>
             </div>
           </div>
@@ -86,7 +82,8 @@ export default {
   data() {
     return {
       data: [],
-      selectedIndex: 0
+      posterSrc: 'https://image.tmdb.org/t/p/w500',
+      selectedIndex: 0,
     }
   },
   created() {
@@ -95,6 +92,10 @@ export default {
   methods: {
     changeSelectedIndex(index) {
       this.selectedIndex = index
+    },
+    moveToDetail() {
+      this.$store.commit('GET_MOVIE_DETAIL', this.data[this.selectedIndex])
+      this.$store.dispatch('getVideo', this.data[this.selectedIndex].title)
     },
     getTopRatedMovies() {
       axios({
@@ -115,7 +116,7 @@ export default {
 
             return axios.get(detailUrl)
               .then(detailResponse => {
-                const detailJson = detailResponse.data;
+                const detailJson = detailResponse.data
                 
                 const movieDetail = {
                   movie_id: detailJson.id,
@@ -125,22 +126,20 @@ export default {
                   genre: detailJson.genres.map(genre => genre.name).join(', '),
                   running_time: `${detailJson.runtime}분`,
                   rating: detailJson.vote_average,
-                  image: `https://image.tmdb.org/t/p/w500${detailJson.poster_path}`,
+                  poster_path: detailJson.poster_path,
                 }
-                console.log(movieDetail)
                 return movieDetail
               })
           })
 
           return Promise.all(movieDetailsPromises)
         })
-        .then(movieDetails => {
+        .then((movieDetails) => {
           this.data = movieDetails
         })
-        .catch(error => {
-          console.error('error:', error)
-        });
-
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
