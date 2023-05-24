@@ -112,11 +112,11 @@
         MYPAGE
       </div>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#">
+        <li>
+          <a class="dropdown-item" href="#">
           <router-link :to="{ name: 'MyPageView' }" class='router-link' style="color:black">
             내정보
           </router-link>
-          
           </a>
         </li>
         <li><a class="dropdown-item" href="#" @click="logout">로그아웃</a></li>

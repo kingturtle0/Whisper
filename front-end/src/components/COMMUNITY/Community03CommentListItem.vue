@@ -1,14 +1,20 @@
 <template>
   <div>
-    <div v-if="!isUpdating">
+    <div class='comment-container' v-if="!isUpdating">
+
+      <div class='comment-box'>
       <span>
         {{ comment?.user.username }} : {{ comment?.content }}
+        <span class='ml-10' v-if="comment?.user.username === userName">
+          <button class='mybtn' @click="startUpdate">수정</button>
+          <button class='mybtn' @click="deleteComment">삭제</button>
+        </span>
+        <!-- <hr class='my-hr'> -->
       </span>
-      <div v-if="comment?.user.username === userName">
-        <button @click="startUpdate">수정</button>
-        <button @click="deleteComment">삭제</button>
-      </div>
+
     </div>
+    </div>
+
     <div v-else>
       <form @submit.prevent="updateComment">
         <label>{{ userName }} : </label>
@@ -84,3 +90,50 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.comment-container {
+  width:93%;
+  margin: 0 auto;
+  margin-top: 20px;
+  /* margin-bottom: 20px; */
+}
+
+.mywidth1{
+  width:93%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+.my-hr{
+  width:100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border: 0;
+  height: 2px;
+  background-color: white;
+}
+
+.comment-box{
+  width:98%;
+  margin-top: 25px;
+  /* background-color: #4d4d4d; */
+  margin-bottom: 25px;
+}
+
+.mybtn{
+  background:white;
+  border-radius: 5px;
+  border: none;
+  margin-left: 3px;
+  font-size: 12px;
+  padding:5px;
+  
+}
+
+.ml-10{
+  margin-left: 10px;
+}
+
+
+
+</style>

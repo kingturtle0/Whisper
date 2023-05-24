@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <h3>Comments</h3>
+  <div class='comments-container'>
+    <div class="comments-box">
+    <h5>댓글작성</h5>
     <form @submit.prevent="createComment">
       <input required type="text" maxlength="140" v-model.trim="content">
       <label>{{ userName }}</label>
       <span></span>
     </form>
+    </div>
   </div>
 </template>
 
@@ -54,6 +56,13 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+
+.comments-container{
+  width:89%;
+  margin: 40px auto;
+  
 }
 
 form {
@@ -108,4 +117,54 @@ input:focus ~ label, input:valid ~ label {
 input:focus ~ span, input:valid ~ span {
   width: 100%;
 }
+
+
+.my-hr{
+  margin-top: 15px;
+  border: 0;
+  height: 2px;
+  background-color: white;
+}
+
+.mb-20{
+  margin-bottom: 20px;
+}
+
+.article-box{
+  height: 600px;
+  width: 88%;
+  background-color: rgb(33, 33, 37);
+  padding:20px;
+  border-radius: 1%;
+  margin: 0 auto;
+  
+}
+
+.title{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.title-user{
+  font-size: 22px;
+  margin-left: 5px;
+  /* font-weight: bold; */
+  /* margin-left: 10px; */
+}
+
+.title-date{
+  font-size:15px
+}
+
+.content{
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+
+
+
+
 </style>

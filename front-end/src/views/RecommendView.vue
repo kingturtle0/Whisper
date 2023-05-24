@@ -115,7 +115,7 @@ export default {
 }
 
 .margin-box {
-  margin-top: 10px;
+  margin-top: 50px;
 }
 
 .main-poster {
