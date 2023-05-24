@@ -5,19 +5,19 @@
       <section class="recommend-container mt-80" style="width:92%">
         <div class="row movie-container my-2">
 
-          <div class="col-3 movie-box hov-anim-box radius">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToRomance">
             <img src="@/assets/01_로맨스영화.gif" alt="" class='animated'>
             <img src="@/assets/01_로맨스영화.jpg" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToMusic">
             <img src="@/assets/03_음악영화.gif" alt="" class='animated'>
             <img src="@/assets/03_음악영화.png" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToSF">
             <img src="@/assets/04_SF영화.gif" alt="" class='animated'>
             <img src="@/assets/04_SF영화.png" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToAction">
             <img src="@/assets/02_액션영화.gif" class='animated'>
             <img src="@/assets/02_액션영화.png" class='static'>
           </div>
@@ -26,19 +26,19 @@
 
         <div class="row movie-container my-5">
 
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToHorror">
             <img src="@/assets/05_공포영화.gif" alt="" class='animated'>
             <img src="@/assets/05_공포영화.png" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToHistory">
             <img src="@/assets/06_역사영화.gif" alt="" class='animated'>
             <img src="@/assets/06_역사영화.png" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToFamily">
             <img src="@/assets/07_가족영화.gif" alt="" class='animated'>
             <img src="@/assets/07_가족영화.png" alt="" class='static'>
           </div>
-          <div class="col-3 movie-box hov-anim-box">
+          <div class="col-3 movie-box hov-anim-box" @click="moveToAnimation">
             <img src="@/assets/08_애니메이션영화.gif" alt="" class='animated'>
             <img src="@/assets/08_애니메이션영화.png" alt="" class='static'>
           </div>
@@ -52,10 +52,34 @@
 </template>
 
 <script>
-
 export default {
   name: 'RecommendView',
-  
+  methods: {
+    moveToRomance() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'romance'} })
+    },
+    moveToMusic() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'music'} })
+    },
+    moveToSF() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'sf'} })
+    },
+    moveToAction() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'action'} })
+    },
+    moveToHorror() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'horror'} })
+    },
+    moveToHistory() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'history'} })
+    },
+    moveToFamily() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'family'} })
+    },
+    moveToAnimation() {
+      this.$router.push({ name: 'RecommendGenreView', params: { genre: 'animation'} })
+    },
+  }
 }
 </script>
 

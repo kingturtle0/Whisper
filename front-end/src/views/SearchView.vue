@@ -45,7 +45,6 @@ export default {
         }
       })
         .then((response) => {
-          console.log(response.data)
           const keyWord = this.$route.query.keyword.split(/\s+/)
           const parsedMovies = response.data.filter((movie) => {
             const title = movie.title

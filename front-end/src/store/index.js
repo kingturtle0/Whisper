@@ -19,25 +19,26 @@ export default new Vuex.Store({
   state: {
     articles: [],
     video: [],
+    movie: [],
     loading: false,
     URL: 'https://www.googleapis.com/youtube/v3',
     KEY: 'AIzaSyC-qE5UZQcriZFK3b5E3_Vd9m-hYEaqR6g'
   },
   getters: {
-    selectedVideo(state) {
-      return state.video
-    }
   },
   mutations: {
     GET_ARTICLES(state, articles) {
       state.articles = articles
     },
     GET_VIDEO(state, video) {
-			state.video = video;
+			state.video = video
 		},
 		CHANGE_LOADING(state, flag) {
-			state.loading = flag;
+			state.loading = flag
 		},
+    GET_MOVIE_DETAIL(state, movie) {
+      state.movie = movie
+    }
   },
   actions: {
     getArticles(context) {
@@ -87,7 +88,8 @@ export default new Vuex.Store({
         context.commit("GET_VIDEO", parsedVideo)
         context.dispatch("changeLoading", false)
 
-        router.push(`movies/${parsedVideo.videoId}`)
+        // router.push(`movies/${parsedVideo.videoId}`)
+        router.push({ name: 'DetailMovieView', params: { videoId: parsedVideo.videoId} })
       })
       .catch((error) => {
         console.log(error);
