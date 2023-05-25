@@ -91,7 +91,9 @@
       </form>
     </div>
     <div class='flex-item' style='flex-grow:1'>
-      ABOUT
+      <router-link :to="{ name: 'AboutView' }" class='router-link' id=''>
+        ABOUT
+      </router-link>
     </div>
     <div class='flex-item leftToRight' style='flex-grow:1;'>
       <router-link :to="{ name: 'RecommendView' }" class='router-link' id=''>
