@@ -25,6 +25,11 @@ const auth =  {
     LOGOUT(state) {
       state.token = null
       router.push({name : 'HomeView'})
+        .catch(error => {
+          if (error.name !== 'NavigationDuplicated') {
+            throw error;
+          }
+        })
     }
   },
   actions: {
