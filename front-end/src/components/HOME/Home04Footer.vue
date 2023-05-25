@@ -5,12 +5,14 @@
     <div v-if='showCover' class="cover">
       <div class="body">
         <div class="wave-container">
+          <div style="width:100vw;height:100vh;position:absolute;" @click="[toggleCover(), stopRecognition()]"></div>
           <!--------- 버튼 --------->
-          <button class="btn"></button>
+          <button v-if="texts" class="btn" @click="toggleRecognition">{{ texts }}</button>
+          <button v-else class="btn" @click="toggleRecognition">Whisper</button>
           <div class="wave_wrap">
-            <div class="wave"></div>
-            <div class="wave"></div>
-            <div class="wave"></div>
+            <div class="wave" :class="{ 'animated': isAnimating }"></div>
+            <div class="wave" :class="{ 'animated': isAnimating }"></div>
+            <div class="wave" :class="{ 'animated': isAnimating }"></div>
           </div>
         </div>
       </div>
@@ -18,9 +20,9 @@
 
     <!-- footer음파 -->
     <div class="hov-anim-box">
-      <div class="img-container" @click="toggleCover">
-        <img src="@/assets/footer1.gif" alt="" class="animated">
-        <img src="@/assets/footer1.png" alt="" class="static">
+      <div class="img-container">
+        <img src="@/assets/footer1.gif" alt="" class="animated" @click="toggleCover">
+        <img src="@/assets/footer1.png" alt="" class="static" @click="toggleCover">
       </div>
     </div>
   </div>
@@ -31,16 +33,74 @@ export default {
   name: 'Home04Footer',
   data() {
     return {
-      showCover: false
+      showCover: false,
+      texts: '',
+      isRecognizing: true,
+      recognitionTimeout: null,
+      isAnimating: false,
     };
+  },
+  mounted() {
+    this.initializeSpeechRecognition()
   },
   methods: {
     toggleCover() {
-      this.showCover = !this.showCover;
+      this.showCover = !this.showCover
     },
+    toggleAnimation() {
+      this.isAnimating = !this.isAnimating
+    },
+    initializeSpeechRecognition() {
+      let SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      if (!("webkitSpeechRecognition" in window)) {
+        alert("이 브라우저에서는 음성 인식 기능을 지원하지 않습니다!")
+      } else {
+      const recognition = new SpeechRecognition()
+      recognition.interimResults = true
+      recognition.lang = 'ko-KR'
+      recognition.continuous = false
+      recognition.maxAlternatives = 20000
 
-}
+      recognition.onspeechend = () => {
+        recognition.stop()
+        this.isRecognizing = true
+      }
 
+      recognition.onresult = (e) => {
+        this.texts = Array.from(e.results).map(results => results[0].transcript).join("")
+      }
+
+      this.recognition = recognition
+      }
+    },
+    toggleRecognition() {
+      if (this.isRecognizing) {
+        this.startRecognition()
+      } else {
+        this.stopRecognition()
+      }
+    },
+    startRecognition() {
+      this.recognition.start()
+      this.toggleAnimation()
+      this.isRecognizing = false
+      this.recognitionTimeout = setTimeout(() => {
+        this.stopRecognition()
+      }, 5000)
+    },
+    stopRecognition() {
+      clearTimeout(this.recognitionTimeout)
+      this.recognition.stop()
+      this.isRecognizing = true
+      if (this.texts.trim()) {
+        this.$store.dispatch("getVideo", this.texts)
+      } else {
+        console.log('no text')
+      }
+      this.toggleAnimation()
+      this.texts = ''
+    },
+  }
 }
 </script>
 
@@ -57,7 +117,7 @@ export default {
   }
 
   .img-container{
- display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
   }
@@ -112,6 +172,10 @@ export default {
     align-items: center;
     /* background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5); */
     background: linear-gradient(to right, #0f0f31, #110d3b, #030327);
+    color: white;
+    font-family: 'Sriracha', 'Noto Sans KR' ,sans-serif;
+    font-weight: 400;
+    font-size: 19px;
   }
 
   .wave-container .btn {
@@ -124,6 +188,10 @@ export default {
     transition: transform 0.2s ease-out;
     z-index: 10;
     cursor: pointer;
+    color: white;
+    font-family: 'Sriracha', 'Noto Sans KR' ,sans-serif;
+    font-weight: 400;
+    font-size: 19px;
   }
 
   .wave-container .btn:hover {
@@ -135,10 +203,10 @@ export default {
   }
 
   .wave-container .btn::before {
-    content: 'Whisper';
+    /* content: 'Whisper'; */
     /* color: var(--brightcolor); */
     color: white;
-    font-family: 'Sriracha', sans-serif;
+    font-family: 'Sriracha', 'Noto Sans KR' ,sans-serif;
     font-weight: 400;
     font-size: 19px;
   }
@@ -175,6 +243,14 @@ export default {
 
   .wave-container .wave_wrap .wave:nth-child(3) {
     animation-delay: 2s;
+  }
+
+  .wave-container .wave.animated {
+    animation-play-state: running;
+  }
+
+  .wave-container .wave:not(.animated) {
+    animation-play-state: paused;
   }
 
   .cover {

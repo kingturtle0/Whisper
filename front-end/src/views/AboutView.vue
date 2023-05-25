@@ -1,26 +1,49 @@
 <template>
   <div class="container">
     <Home01Navbar />
-    <div>하이</div>
-    <div data-aos="zoom-out-right"> <!-- 오른쪽으로 줌아웃 하는 모션 설정 -->
-        <!-- 내용 ... -->
+    <!-- <div data-aos="zoom-out-right">
         blabla
-    </div>
-    
-    <!-- 다양한 속성들이 존재한다. (설명은 후술) -->
-    <div data-aos="fade-up" 
-        data-aos-offset="200" 
-          data-aos-easing="ease-out-cubic"
-          data-aos-duration="2000" 
-          >
-        <!-- 내용 ... -->
-        blablabla
+    </div> -->
+    <h1 data-aos="flip-down" data-aos-delay="200" data-aos-duration="1000" class="text-center mt-5">Project Whisper</h1>
+    <div class="cards">
+      <div class="card about-us" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card1
+      </div>
+      <div class="card about-us" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card2
+      </div>
+      <div class="card about-us" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card1
+      </div>
+      <div class="card about-us" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card2
+      </div>
+      <div class="card about-us" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card1
+      </div>
+      <div class="card about-us" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card2
+      </div>
+      <div class="card about-us" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card1
+      </div>
+      <div class="card about-us" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card2
+      </div>
+      <div class="card about-us" data-aos="fade-right" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card1
+      </div>
+      <div class="card about-us" data-aos="fade-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
+        card2
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import AOS from 'aos';
 import Home01Navbar from '@/components/HOME/Home01Navbar.vue'
+AOS.init()
 
 export default {
   name: 'AboutView',
@@ -30,6 +53,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
+.card {
+  width: 40%;
+  height: 300px;
+  font-size: 24px;
+  margin: 100px 10px;
+  border: 1px solid #e3e3e3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

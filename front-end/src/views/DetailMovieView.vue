@@ -104,7 +104,6 @@
           console.log(error)
         })
       this.movie = this.$store.state.movie
-      console.log(this.movie)
       axios({
         method: 'get',
         url: `${API_URL}/movies/${this.movie.id}/like/`,
