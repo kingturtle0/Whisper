@@ -46,7 +46,7 @@ export default {
 <style>
 .rate-container {
   display: flex;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   justify-content: space-around;
   padding-right: 30px;
   padding-left: 30px;
