@@ -9,7 +9,6 @@ import CommunityView from '@/views/CommunityView.vue'
 import CreateArticleView from '@/views/CreateArticleView.vue'
 import DetailArticleView from '@/views/DetailArticleView.vue'
 import UpdateArticleView from '@/views/UpdateArticleView.vue'
-import MoviesView from '@/views/MoviesView.vue'
 import DetailMovieView from '@/views/DetailMovieView.vue'
 import MyPageView from '@/views/MyPageView.vue'
 
@@ -60,11 +59,6 @@ const routes = [
     path: '/community/:id/update',
     name: 'UpdateArticleView',
     component: UpdateArticleView
-  },
-  {
-    path: '/movies',
-    name: 'MoviesView',
-    component: MoviesView,
   },
   {
     path: '/movies/:videoId',
