@@ -58,5 +58,5 @@ def liked_movies(request):
     user = request.user
     liked_movies = user.like_movies.all()
 
-    serializer = MovieSerializer(liked_movies, many=True)
+    serializer = MovieListSerializer(liked_movies, many=True)
     return Response(serializer.data)

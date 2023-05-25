@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import SearchView from '@/views/SearchView.vue'
+import AboutView from '@/views/AboutView.vue'
 import RecommendView from '@/views/RecommendView.vue'
 import RecommendGenreView from '@/views/RecommendGenreView.vue'
 import CommunityView from '@/views/CommunityView.vue'
@@ -24,6 +25,11 @@ const routes = [
     path: '/search/query',
     name: 'SearchView',
     component: SearchView
+  },
+  {
+    path: '/about',
+    name: 'AboutView',
+    component: AboutView
   },
   {
     path: '/recommend',
