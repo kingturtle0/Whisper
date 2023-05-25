@@ -9,7 +9,7 @@
     <div class='article-container'>
       <h3 class='ml-55 mt-50 mb-20'><i class='fa fa-film'></i> 영화수다</h3>
       <div class="ml-55 article-box">
-        <div class='title'>{{ article?.title }}</div>
+        <div class='title w-75'>{{ article?.title }}</div>
         <div>
           <div class='title-user'>
             <span class='title-date2'>
@@ -22,7 +22,7 @@
         </div>
         <hr class='my-hr'>
         <p class='content'>{{ article?.content }}</p>
-        <div v-if="article?.user.username === userName" class="d-flex justify-content-end align-items-end btn-container">
+        <div v-if="article?.user.username === userName" class="btns">
           <button @click="moveToUpdate" class="btn btn-outline-light article-btn">수정</button>
           <button @click="deleteArticle" class="btn btn-outline-light article-btn">삭제</button>
         </div>
@@ -164,5 +164,11 @@ export default {
   margin-left: 5px;
   font-size: 16px;
   padding:6px;
+}
+
+.btns {
+  position: absolute;
+  right: 425px;
+  top: 600px;
 }
 </style>

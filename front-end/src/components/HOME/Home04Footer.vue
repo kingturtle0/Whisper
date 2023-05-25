@@ -5,7 +5,7 @@
     <div v-if='showCover' class="cover">
       <div class="body">
         <div class="wave-container">
-          <div style="width:100vw;height:100vh;position:absolute;" @click="[toggleCover(), stopRecognition()]"></div>
+          <div style="width:100vw;height:100vh;position:absolute;" @click="toggleCover"></div>
           <!--------- 버튼 --------->
           <button v-if="texts" class="btn" @click="toggleRecognition">{{ texts }}</button>
           <button v-else class="btn" @click="toggleRecognition">Whisper</button>
@@ -93,9 +93,17 @@ export default {
       this.recognition.stop()
       this.isRecognizing = true
       if (this.texts.trim()) {
-        this.$store.dispatch("getVideo", this.texts)
+        if (this.texts.includes('커뮤니티') || this.texts.includes('글')) {
+          this.$router.push({ name: 'CreateArticleView' })
+        } else if (this.texts.includes('공포')) {
+          this.$router.push({ name: 'RecommendGenreView', params: { genre: '공포'} })
+        } else if (this.texts.includes('페이지')) {
+          this.$router.push({ name: 'MyPagezView' })
+        } else {
+          this.$store.dispatch("getVideo", this.texts)
+        }
       } else {
-        console.log('no text')
+        alert('음성이 입력되지 않았습니다!')
       }
       this.toggleAnimation()
       this.texts = ''
