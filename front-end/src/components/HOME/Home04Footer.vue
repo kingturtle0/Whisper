@@ -21,8 +21,8 @@
     <!-- footer음파 -->
     <div class="hov-anim-box">
       <div class="img-container">
-        <img src="@/assets/footer1.gif" alt="" class="animated" @click="toggleCover">
-        <img src="@/assets/footer1.png" alt="" class="static" @click="toggleCover">
+        <img src="https://blog.kakaocdn.net/dn/cNCDUI/btshrxNCa1E/J7A4RIcYrByidgReViRdhk/img.gif" alt="" class="animated" @click="toggleCover">
+        <img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcOKN4D%2Fbtshp5RXddR%2FbGi8QkLjbPtnfikPCQa19K%2Fimg.png" alt="" class="static" @click="toggleCover">
       </div>
     </div>
   </div>

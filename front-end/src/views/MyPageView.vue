@@ -78,7 +78,7 @@
                   <p class="mb-4 navy">Bay Area, samsung</p>
                   <div class="d-flex justify-content-center mb-1">
                     <div class=''>
-                      <img @click='modal_toggle' class='gif' src="@/assets/AI_giphy.gif" alt="">
+                      <img @click='modal_toggle' class='gif' src="https://blog.kakaocdn.net/dn/bQtdqh/btshp6i4jG5/PZkBODwCeGNHYxk0K5CjPK/img.gif" alt="">
                     </div>
                     <!-- <button type="button" class="btn btn-primary">내영화 취향 분석</button> -->
                   </div>
@@ -462,7 +462,7 @@
   }
 
   .modal-gif {
-    animation: fadeOut 2.5s;
+    animation: fadeOut 2s;
     opacity: 0;
     position: absolute;
     z-index: 99;
